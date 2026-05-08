@@ -1,0 +1,97 @@
+package {{controllerPackage}};
+
+import {{dtoPackage}}.{{entityName}}Dto;
+import {{entityPackage}}.{{entityName}};
+{{#each enumFields}}
+import {{entityPackage}}.{{javaType}};
+{{/each}}
+{{#each relations}}
+{{#unless collection}}
+import {{entityPackage}}.{{target}};
+{{/unless}}
+{{/each}}
+import {{servicePackage}}.{{entityName}}Service;
+{{#each controllerImports}}
+import {{this}};
+{{/each}}
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
+
+@RestController
+@RequestMapping("/api/{{entityKebab}}")
+@RequiredArgsConstructor
+public class {{entityName}}Controller {
+
+    private final {{entityName}}Service {{entityCamel}}Service;
+
+    @GetMapping
+    public ResponseEntity<List<{{entityName}}Dto>> findAll() {
+        return ResponseEntity.ok({{entityCamel}}Service.findAll().stream()
+                .map(this::toDto)
+                .toList());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<{{entityName}}Dto> findById(@PathVariable Long id) {
+        return {{entityCamel}}Service.findById(id)
+                .map(this::toDto)
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "{{entityKebab}}.not.found"));
+    }
+
+    @PostMapping
+    public ResponseEntity<{{entityName}}Dto> create(@RequestBody {{entityName}}Dto dto) {
+        {{entityName}} saved = {{entityCamel}}Service.save(toEntity(dto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(toDto(saved));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<{{entityName}}Dto> update(@PathVariable Long id, @RequestBody {{entityName}}Dto dto) {
+        {{entityName}} entity = toEntity(dto);
+        entity.setId(id);
+        return ResponseEntity.ok(toDto({{entityCamel}}Service.save(entity)));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        {{entityCamel}}Service.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    private {{entityName}}Dto toDto({{entityName}} entity) {
+        return new {{entityName}}Dto(
+{{#each dtoComponents}}
+                {{{readExpression}}}{{#unless @last}},{{/unless}}
+{{/each}}
+        );
+    }
+
+    private {{entityName}} toEntity({{entityName}}Dto dto) {
+        {{entityName}} entity = new {{entityName}}();
+{{#each fields}}
+{{#unless id}}
+        entity.set{{pascalName}}(dto.{{name}}());
+{{/unless}}
+{{/each}}
+{{#each relations}}
+{{#unless collection}}
+        if (dto.{{name}}Id() != null) {
+            {{target}} {{name}} = new {{target}}();
+            {{name}}.setId(dto.{{name}}Id());
+            entity.set{{pascalName}}({{name}});
+        }
+{{/unless}}
+{{/each}}
+        return entity;
+    }
+}

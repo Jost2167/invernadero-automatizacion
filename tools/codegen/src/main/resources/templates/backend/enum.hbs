@@ -1,0 +1,7 @@
+package {{entityPackage}};
+
+public enum {{javaType}} {
+{{#each enumValues}}
+    {{this}}{{#unless @last}},{{/unless}}
+{{/each}}
+}

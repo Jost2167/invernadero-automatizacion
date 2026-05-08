@@ -1,0 +1,26 @@
+{
+  "version": "1",
+  "name": "Sensor",
+  "tableName": "sensors",
+  "fields": [
+    {
+      "name": "id",
+      "type": "Long",
+      "nullable": false
+    },
+    {
+      "name": "name",
+      "type": "String",
+      "length": 120,
+      "nullable": false,
+      "unique": true
+    },
+    {
+      "name": "active",
+      "type": "Boolean",
+      "nullable": false,
+      "defaultValue": true
+    }
+  ],
+  "relations": []
+}

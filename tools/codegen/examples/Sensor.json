@@ -1,0 +1,52 @@
+{
+  "version": "1",
+  "name": "Sensor",
+  "tableName": "sensors",
+  "fields": [
+    {
+      "name": "name",
+      "type": "String",
+      "length": 120,
+      "nullable": false,
+      "unique": true
+    },
+    {
+      "name": "type",
+      "type": "Enum",
+      "enumValues": ["TEMPERATURE", "HUMIDITY", "LIGHT", "SOIL_MOISTURE"],
+      "nullable": false
+    },
+    {
+      "name": "lastReadingAt",
+      "type": "LocalDateTime",
+      "nullable": true
+    },
+    {
+      "name": "batteryLevel",
+      "type": "BigDecimal",
+      "precision": 5,
+      "scale": 2,
+      "nullable": true
+    },
+    {
+      "name": "active",
+      "type": "Boolean",
+      "nullable": false,
+      "defaultValue": true
+    }
+  ],
+  "relations": [
+    {
+      "name": "location",
+      "type": "ManyToOne",
+      "target": "Location",
+      "joinColumn": "location_id",
+      "fetch": "LAZY"
+    }
+  ],
+  "options": {
+    "generateController": true,
+    "generateFrontend": true,
+    "auditable": false
+  }
+}

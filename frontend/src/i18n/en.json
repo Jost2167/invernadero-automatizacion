@@ -1,0 +1,40 @@
+{
+  "app" : {
+    "title" : "Greenhouse"
+  },
+  "auth" : {
+    "login" : {
+      "title" : "Welcome to Greenhouse",
+      "subtitle" : "Sign in to continue",
+      "googleButton" : "Sign in with Google",
+      "secureLogin" : "Secure Login",
+      "termsNote" : "By signing in, you agree to our Terms of Service"
+    },
+    "errors" : {
+      "TOKEN_INVALID" : "The session token is invalid or has expired",
+      "EMAIL_INVALID" : "The email address is not valid",
+      "USER_INACTIVE" : "The account is not enabled",
+      "USER_NOT_REGISTERED" : "Your email is not registered in the system",
+      "USER_NO_ROLES" : "The user has no roles assigned",
+      "LOGIN_CANCELLED" : "Sign-in cancelled",
+      "GENERIC_ERROR" : "Could not sign in. Please try again."
+    }
+  },
+  "sidebar" : {
+    "dashboard" : "Dashboard",
+    "openMenu" : "Open menu",
+    "closeMenu" : "Close menu"
+  },
+  "home" : {
+    "welcome" : "Welcome, {{name}}",
+    "email" : "Email",
+    "roles" : "Roles",
+    "logout" : "Sign out",
+    "profileTitle" : "Profile"
+  },
+  "language" : {
+    "label" : "Language",
+    "es" : "Spanish",
+    "en" : "English"
+  }
+}

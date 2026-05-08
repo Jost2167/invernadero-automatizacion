@@ -1,0 +1,19 @@
+{
+  "version": "1",
+  "name": "Measurement",
+  "tableName": "measurements",
+  "fields": [
+    {
+      "name": "recordedAt",
+      "type": "LocalDateTime",
+      "nullable": false
+    }
+  ],
+  "relations": [
+    {
+      "name": "sensor",
+      "type": "ManyToOne",
+      "target": "Sensor"
+    }
+  ]
+}

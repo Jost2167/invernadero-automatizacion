@@ -1,0 +1,11 @@
+{
+  "version": "1",
+  "name": "Sensor",
+  "tableName": "sensors",
+  "fields": [
+    {
+      "name": "humidity",
+      "type": "Double"
+    }
+  ]
+}

@@ -1,0 +1,319 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jost.com/invernadero/codegen/entity-definition.schema.json",
+  "title": "EntityDefinition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "name", "tableName", "fields"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "1"
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Za-z0-9]*$"
+    },
+    "tableName": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "fields": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/field"
+      }
+    },
+    "relations": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/relation"
+      }
+    },
+    "options": {
+      "$ref": "#/$defs/options"
+    }
+  },
+  "$defs": {
+    "field": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "type"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z][A-Za-z0-9]*$"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "String",
+            "Integer",
+            "Long",
+            "BigDecimal",
+            "Boolean",
+            "LocalDate",
+            "LocalDateTime",
+            "UUID",
+            "Enum"
+          ]
+        },
+        "nullable": {
+          "type": "boolean",
+          "default": true
+        },
+        "unique": {
+          "type": "boolean",
+          "default": false
+        },
+        "length": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "precision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "scale": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "defaultValue": {
+          "type": ["string", "number", "integer", "boolean", "null"]
+        },
+        "enumValues": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Z0-9_]*$"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": ["type"],
+            "properties": {
+              "type": {
+                "const": "Enum"
+              }
+            }
+          },
+          "then": {
+            "required": ["enumValues"]
+          }
+        },
+        {
+          "not": {
+            "allOf": [
+              {
+                "required": ["type", "enumValues"]
+              },
+              {
+                "properties": {
+                  "type": {
+                    "not": {
+                      "const": "Enum"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "not": {
+            "allOf": [
+              {
+                "required": ["type", "length"]
+              },
+              {
+                "properties": {
+                  "type": {
+                    "not": {
+                      "const": "String"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "not": {
+            "allOf": [
+              {
+                "required": ["type", "precision"]
+              },
+              {
+                "properties": {
+                  "type": {
+                    "not": {
+                      "const": "BigDecimal"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "not": {
+            "allOf": [
+              {
+                "required": ["type", "scale"]
+              },
+              {
+                "properties": {
+                  "type": {
+                    "not": {
+                      "const": "BigDecimal"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "relation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "type", "target"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z][A-Za-z0-9]*$"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["OneToMany", "ManyToOne", "ManyToMany", "OneToOne"]
+        },
+        "target": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Za-z0-9]*$"
+        },
+        "mappedBy": {
+          "type": "string",
+          "pattern": "^[a-z][A-Za-z0-9]*$"
+        },
+        "joinColumn": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "cascade": {
+          "type": "array",
+          "default": [],
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": ["PERSIST", "MERGE", "REMOVE", "REFRESH", "DETACH", "ALL"]
+          }
+        },
+        "fetch": {
+          "type": "string",
+          "enum": ["LAZY", "EAGER"],
+          "default": "LAZY"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": ["type"],
+            "properties": {
+              "type": {
+                "const": "OneToMany"
+              }
+            }
+          },
+          "then": {
+            "required": ["mappedBy"],
+            "not": {
+              "required": ["joinColumn"]
+            }
+          }
+        },
+        {
+          "if": {
+            "required": ["type"],
+            "properties": {
+              "type": {
+                "const": "ManyToOne"
+              }
+            }
+          },
+          "then": {
+            "required": ["joinColumn"],
+            "not": {
+              "required": ["mappedBy"]
+            }
+          }
+        },
+        {
+          "if": {
+            "required": ["type"],
+            "properties": {
+              "type": {
+                "const": "OneToOne"
+              }
+            }
+          },
+          "then": {
+            "oneOf": [
+              {
+                "required": ["joinColumn"],
+                "not": {
+                  "required": ["mappedBy"]
+                }
+              },
+              {
+                "required": ["mappedBy"],
+                "not": {
+                  "required": ["joinColumn"]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": ["type"],
+            "properties": {
+              "type": {
+                "const": "ManyToMany"
+              }
+            }
+          },
+          "then": {
+            "not": {
+              "required": ["joinColumn"]
+            }
+          }
+        }
+      ]
+    },
+    "options": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "generateController": {
+          "type": "boolean",
+          "default": true
+        },
+        "generateFrontend": {
+          "type": "boolean",
+          "default": false
+        },
+        "auditable": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "version": "1",
+  "name": "Alert",
+  "tableName": "alerts",
+  "fields": [
+    {
+      "name": "message",
+      "type": "String",
+      "length": 255,
+      "nullable": false
+    },
+    {
+      "name": "severity",
+      "type": "Enum",
+      "enumValues": ["LOW", "MEDIUM", "HIGH", "CRITICAL"],
+      "nullable": false
+    }
+  ],
+  "relations": [
+    {
+      "name": "sensor",
+      "type": "ManyToOne",
+      "target": "Sensor",
+      "joinColumn": "sensor_id"
+    }
+  ]
+}

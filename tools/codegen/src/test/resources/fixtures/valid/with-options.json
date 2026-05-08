@@ -1,0 +1,29 @@
+{
+  "version": "1",
+  "name": "IrrigationSchedule",
+  "tableName": "irrigation_schedules",
+  "fields": [
+    {
+      "name": "startsAt",
+      "type": "LocalDateTime",
+      "nullable": false
+    },
+    {
+      "name": "durationMinutes",
+      "type": "Integer",
+      "nullable": false
+    },
+    {
+      "name": "enabled",
+      "type": "Boolean",
+      "nullable": false,
+      "defaultValue": true
+    }
+  ],
+  "relations": [],
+  "options": {
+    "generateController": true,
+    "generateFrontend": true,
+    "auditable": true
+  }
+}

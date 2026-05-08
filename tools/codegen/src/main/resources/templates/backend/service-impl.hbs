@@ -1,0 +1,37 @@
+package {{servicePackage}};
+
+import {{entityPackage}}.{{entityName}};
+import {{repositoryPackage}}.{{entityName}}Repository;
+{{#each serviceImports}}
+import {{this}};
+{{/each}}
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class {{entityName}}ServiceImpl implements {{entityName}}Service {
+
+    private final {{entityName}}Repository {{entityCamel}}Repository;
+
+    @Override
+    public List<{{entityName}}> findAll() {
+        return {{entityCamel}}Repository.findAll();
+    }
+
+    @Override
+    public Optional<{{entityName}}> findById(Long id) {
+        return {{entityCamel}}Repository.findById(id);
+    }
+
+    @Override
+    public {{entityName}} save({{entityName}} entity) {
+        return {{entityCamel}}Repository.save(entity);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        {{entityCamel}}Repository.deleteById(id);
+    }
+
+}

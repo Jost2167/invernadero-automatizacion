@@ -1,0 +1,12 @@
+{
+  "version": "1",
+  "name": "sensor",
+  "tableName": "sensors",
+  "fields": [
+    {
+      "name": "name",
+      "type": "String",
+      "length": 120
+    }
+  ]
+}

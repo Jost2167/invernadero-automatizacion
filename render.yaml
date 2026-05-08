@@ -1,0 +1,60 @@
+databases:
+  - name: invernadero-db
+    databaseName: invernadero
+    user: invernadero_user
+    plan: free
+
+services:
+  - type: web
+    name: invernadero-backend
+    env: java
+    plan: free
+    buildCommand: mvn -pl backend package -DskipTests
+    startCommand: java -jar backend/target/invernadero-automatizacion-0.0.1-SNAPSHOT.jar
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: DB_HOST
+        fromDatabase:
+          name: invernadero-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: invernadero-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: invernadero-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: invernadero-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: invernadero-db
+          property: password
+      - key: JWT_SECRET
+        generateValue: true
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: APP_OAUTH2_REDIRECT_URI
+        sync: false
+      - key: ALLOWED_ORIGINS
+        sync: false
+
+  - type: web
+    name: invernadero-frontend
+    env: static
+    plan: free
+    buildCommand: npm --prefix frontend ci && npm --prefix frontend run build
+    staticPublishPath: frontend/dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_BASE_URL
+        sync: false

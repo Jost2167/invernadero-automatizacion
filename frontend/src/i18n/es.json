@@ -1,0 +1,40 @@
+{
+  "app" : {
+    "title" : "Invernadero"
+  },
+  "auth" : {
+    "login" : {
+      "title" : "Bienvenido a Invernadero",
+      "subtitle" : "Inicia sesión para continuar",
+      "googleButton" : "Iniciar sesión con Google",
+      "secureLogin" : "Inicio seguro",
+      "termsNote" : "Al iniciar sesión, aceptas nuestros Términos de servicio"
+    },
+    "errors" : {
+      "TOKEN_INVALID" : "El token de sesión no es válido o ha expirado",
+      "EMAIL_INVALID" : "El correo electrónico no es válido",
+      "USER_INACTIVE" : "La cuenta no se encuentra habilitada",
+      "USER_NOT_REGISTERED" : "Su correo no se encuentra registrado en el sistema",
+      "USER_NO_ROLES" : "El usuario no tiene roles asignados",
+      "LOGIN_CANCELLED" : "Inicio de sesión cancelado",
+      "GENERIC_ERROR" : "No se pudo iniciar sesión. Intente nuevamente."
+    }
+  },
+  "sidebar" : {
+    "dashboard" : "Inicio",
+    "openMenu" : "Abrir menú",
+    "closeMenu" : "Cerrar menú"
+  },
+  "home" : {
+    "welcome" : "Bienvenido, {{name}}",
+    "email" : "Email",
+    "roles" : "Roles",
+    "logout" : "Cerrar sesión",
+    "profileTitle" : "Perfil"
+  },
+  "language" : {
+    "label" : "Idioma",
+    "es" : "Español",
+    "en" : "Inglés"
+  }
+}

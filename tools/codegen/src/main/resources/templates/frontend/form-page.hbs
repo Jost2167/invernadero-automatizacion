@@ -1,0 +1,152 @@
+import { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import {
+  Alert,
+  Box,
+  Button,
+  Checkbox,
+  Container,
+{{#if hasSingleRelations}}
+  FormControl,
+{{/if}}
+  FormControlLabel,
+{{#if hasSingleRelations}}
+  InputLabel,
+{{/if}}
+  MenuItem,
+  Paper,
+{{#if hasSingleRelations}}
+  Select,
+{{/if}}
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material'
+import { useTranslation } from 'react-i18next'
+import {{entityCamel}}Api{{#if hasRelatedTargets}}, { {{#each relatedTargets}}listAll{{targetEntity}}{{#unless @last}}, {{/unless}}{{/each}} }{{/if}} from '../../api/{{entityKebab}}.js'
+
+const pageSx = { mt: 4 }
+const paperSx = { p: 3 }
+const titleSx = { mb: 3 }
+const alertSx = { mb: 2 }
+const actionsSx = { display: 'flex', gap: 1, justifyContent: 'flex-end' }
+const shrinkInputLabelProps = { shrink: true }
+
+const initialForm = {
+{{#each dtoComponents}}
+  {{name}}: '',
+{{/each}}
+}
+
+export default function {{entityName}}FormPage() {
+  const { id } = useParams()
+  const navigate = useNavigate()
+  const { t } = useTranslation()
+  const editing = id && id !== 'new'
+  const [form, setForm] = useState(initialForm)
+  const [error, setError] = useState(null)
+{{#each singleRelations}}
+  const [{{optionsVar}}, {{optionsSetter}}] = useState([])
+{{/each}}
+
+  useEffect(() => {
+{{#each singleRelations}}
+    listAll{{targetEntity}}().then((data) => {{optionsSetter}}(data))
+{{/each}}
+    if (!editing) {
+      return
+    }
+    {{entityCamel}}Api.getById(id)
+      .then(setForm)
+      .catch(() => setError(t('{{entityCamel}}.form.loadError')))
+  }, [editing, id, t])
+
+  const updateField = (name, value) => {
+    setForm((current) => ({ ...current, [name]: value }))
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    setError(null)
+    try {
+      if (editing) {
+        await {{entityCamel}}Api.update(id, form)
+      } else {
+        await {{entityCamel}}Api.create(form)
+      }
+      navigate('/{{entityKebab}}')
+    } catch {
+      setError(t('{{entityCamel}}.form.saveError'))
+    }
+  }
+
+  return (
+    <Container maxWidth="md" sx={pageSx}>
+      <Paper sx={paperSx}>
+        <Typography variant="h5" sx={titleSx}>
+          {editing ? t('{{entityCamel}}.form.editTitle') : t('{{entityCamel}}.form.createTitle')}
+        </Typography>
+
+        {error && <Alert severity="error" sx={alertSx}>{error}</Alert>}
+
+        <Box component="form" onSubmit={handleSubmit}>
+          <Stack spacing={2}>
+{{#each formFields}}
+{{#if enum}}
+            <TextField
+              select
+              label={t('{{../entityCamel}}.form.fields.{{name}}')}
+              value={form.{{name}} ?? ''}
+              onChange={(event) => updateField('{{name}}', event.target.value)}
+            >
+{{#each enumValues}}
+              <MenuItem value="{{this}}">{{this}}</MenuItem>
+{{/each}}
+            </TextField>
+{{/if}}
+{{#if boolean}}
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={Boolean(form.{{name}})}
+                  onChange={(event) => updateField('{{name}}', event.target.checked)}
+                />
+              }
+              label={t('{{../entityCamel}}.form.fields.{{name}}')}
+            />
+{{/if}}
+{{#if textInput}}
+            <TextField
+              type="{{inputType}}"
+              label={t('{{../entityCamel}}.form.fields.{{name}}')}
+              value={form.{{name}} ?? ''}
+              onChange={(event) => updateField('{{name}}', event.target.value)}
+              {{{inputLabelProps}}}
+            />
+{{/if}}
+{{/each}}
+{{#each singleRelations}}
+            <FormControl fullWidth>
+              <InputLabel>{t('{{../entityCamel}}.field.{{name}}')}</InputLabel>
+              <Select
+                value={form.{{idField}} ?? ''}
+                label={t('{{../entityCamel}}.field.{{name}}')}
+                onChange={(event) => updateField('{{idField}}', event.target.value)}
+              >
+                <MenuItem value="">—</MenuItem>
+                { {{optionsVar}}.map((option) => (
+                  <MenuItem key={option.id} value={option.id}>{option.name}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+{{/each}}
+            <Box sx={actionsSx}>
+              <Button onClick={() => navigate('/{{entityKebab}}')}>{t('{{entityCamel}}.form.cancel')}</Button>
+              <Button type="submit" variant="contained">{t('{{entityCamel}}.form.save')}</Button>
+            </Box>
+          </Stack>
+        </Box>
+      </Paper>
+    </Container>
+  )
+}

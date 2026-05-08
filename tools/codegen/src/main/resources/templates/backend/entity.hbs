@@ -1,0 +1,35 @@
+package {{entityPackage}};
+
+{{#each entityImports}}
+import {{this}};
+{{/each}}
+
+@Entity
+@Table(name = "{{tableName}}")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class {{entityName}} {
+
+{{#each fields}}
+{{#each annotations}}
+    {{{this}}}
+{{/each}}
+    private {{{javaType}}} {{name}};
+
+{{/each}}
+{{#each relations}}
+{{#each annotations}}
+    {{{this}}}
+{{/each}}
+{{#if collection}}
+    @Builder.Default
+    private {{{javaType}}} {{name}} = new ArrayList<>();
+{{else}}
+    private {{{javaType}}} {{name}};
+{{/if}}
+
+{{/each}}
+}

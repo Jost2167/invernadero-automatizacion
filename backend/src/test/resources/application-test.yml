@@ -1,0 +1,36 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: false
+    open-in-view: false
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: test-client-id
+            client-secret: test-client-secret
+            scope:
+              - email
+              - profile
+
+app:
+  jwt:
+    secret: test-secret-test-secret-test-secret-test-secret
+    expiration-ms: 900000
+  oauth2:
+    auto-register: false
+    redirect-uri: http://localhost:5173/auth/callback
+  cors:
+    allowed-origins: http://localhost:5173

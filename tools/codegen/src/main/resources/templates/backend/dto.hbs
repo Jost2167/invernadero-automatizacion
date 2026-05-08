@@ -1,0 +1,10 @@
+package {{dtoPackage}};
+
+{{#each dtoImports}}
+import {{this}};
+{{/each}}
+public record {{entityName}}Dto(
+{{#each dtoComponents}}
+        {{javaType}} {{name}}{{#unless @last}},{{/unless}}
+{{/each}}) {
+}

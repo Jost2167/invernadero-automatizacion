@@ -7,9 +7,9 @@ Thumbs.db
 .vscode/
 *.iml
 
-# Java / Spring Boot
-backend/target/
-backend/.mvn/wrapper/maven-wrapper.jar
+# Java / Spring Boot / Maven
+target/
+**/target/
 *.class
 
 # Logs
@@ -33,6 +33,3 @@ backend/src/main/resources/application-dev.yml
 
 # OpenSpec
 openspec
-
-
-.github/
