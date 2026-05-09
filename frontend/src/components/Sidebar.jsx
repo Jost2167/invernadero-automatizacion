@@ -17,6 +17,14 @@ export const NAV_MODULES = [
   { key: 'dashboard', path: '/', exact: true },
   { key: 'location', path: '/location' },
   { key: 'sensor', path: '/sensor' },
+  { key: 'climate-reading', path: '/climate-reading' },
+  { key: 'crop-cycle', path: '/crop-cycle' },
+  { key: 'fertilization-event', path: '/fertilization-event' },
+  { key: 'greenhouse', path: '/greenhouse' },
+  { key: 'greenhouse-alert', path: '/greenhouse-alert' },
+  { key: 'irrigation-event', path: '/irrigation-event' },
+  { key: 'maintenance-task', path: '/maintenance-task' },
+  { key: 'pest-inspection', path: '/pest-inspection' },
   // codegen:nav
 ]
 

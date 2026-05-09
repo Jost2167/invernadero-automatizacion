@@ -101,5 +101,295 @@
     "field" : {
       "location" : "Location"
     }
+  },
+  "climateReading" : {
+    "list" : {
+      "title" : "ClimateReading",
+      "create" : "Crear",
+      "edit" : "Editar",
+      "delete" : "Eliminar",
+      "actions" : "Acciones",
+      "empty" : "Sin registros",
+      "loadError" : "No se pudieron cargar los registros",
+      "fields" : {
+        "recordedAt" : "Recorded At",
+        "temperatureCelsius" : "Temperature Celsius",
+        "humidityPercent" : "Humidity Percent",
+        "co2Ppm" : "Co2Ppm",
+        "lightLux" : "Light Lux"
+      }
+    },
+    "form" : {
+      "createTitle" : "Crear ClimateReading",
+      "editTitle" : "Editar ClimateReading",
+      "save" : "Guardar",
+      "cancel" : "Cancelar",
+      "loadError" : "No se pudo cargar el registro",
+      "saveError" : "No se pudo guardar el registro",
+      "fields" : {
+        "recordedAt" : "Recorded At",
+        "temperatureCelsius" : "Temperature Celsius",
+        "humidityPercent" : "Humidity Percent",
+        "co2Ppm" : "Co2Ppm",
+        "lightLux" : "Light Lux"
+      }
+    },
+    "field" : {
+      "sensor" : "Sensor",
+      "greenhouse" : "Greenhouse"
+    }
+  },
+  "cropCycle" : {
+    "list" : {
+      "title" : "CropCycle",
+      "create" : "Crear",
+      "edit" : "Editar",
+      "delete" : "Eliminar",
+      "actions" : "Acciones",
+      "empty" : "Sin registros",
+      "loadError" : "No se pudieron cargar los registros",
+      "fields" : {
+        "cropName" : "Crop Name",
+        "variety" : "Variety",
+        "startedAt" : "Started At",
+        "expectedHarvestAt" : "Expected Harvest At",
+        "status" : "Status"
+      }
+    },
+    "form" : {
+      "createTitle" : "Crear CropCycle",
+      "editTitle" : "Editar CropCycle",
+      "save" : "Guardar",
+      "cancel" : "Cancelar",
+      "loadError" : "No se pudo cargar el registro",
+      "saveError" : "No se pudo guardar el registro",
+      "fields" : {
+        "cropName" : "Crop Name",
+        "variety" : "Variety",
+        "startedAt" : "Started At",
+        "expectedHarvestAt" : "Expected Harvest At",
+        "status" : "Status"
+      }
+    },
+    "field" : {
+      "greenhouse" : "Greenhouse"
+    }
+  },
+  "fertilizationEvent" : {
+    "list" : {
+      "title" : "FertilizationEvent",
+      "create" : "Crear",
+      "edit" : "Editar",
+      "delete" : "Eliminar",
+      "actions" : "Acciones",
+      "empty" : "Sin registros",
+      "loadError" : "No se pudieron cargar los registros",
+      "fields" : {
+        "appliedAt" : "Applied At",
+        "fertilizerName" : "Fertilizer Name",
+        "dose" : "Dose",
+        "unit" : "Unit",
+        "notes" : "Notes"
+      }
+    },
+    "form" : {
+      "createTitle" : "Crear FertilizationEvent",
+      "editTitle" : "Editar FertilizationEvent",
+      "save" : "Guardar",
+      "cancel" : "Cancelar",
+      "loadError" : "No se pudo cargar el registro",
+      "saveError" : "No se pudo guardar el registro",
+      "fields" : {
+        "appliedAt" : "Applied At",
+        "fertilizerName" : "Fertilizer Name",
+        "dose" : "Dose",
+        "unit" : "Unit",
+        "notes" : "Notes"
+      }
+    },
+    "field" : {
+      "cropCycle" : "Crop Cycle"
+    }
+  },
+  "greenhouse" : {
+    "list" : {
+      "title" : "Greenhouse",
+      "create" : "Crear",
+      "edit" : "Editar",
+      "delete" : "Eliminar",
+      "actions" : "Acciones",
+      "empty" : "Sin registros",
+      "loadError" : "No se pudieron cargar los registros",
+      "fields" : {
+        "code" : "Code",
+        "name" : "Name",
+        "areaSquareMeters" : "Area Square Meters",
+        "status" : "Status",
+        "active" : "Active"
+      }
+    },
+    "form" : {
+      "createTitle" : "Crear Greenhouse",
+      "editTitle" : "Editar Greenhouse",
+      "save" : "Guardar",
+      "cancel" : "Cancelar",
+      "loadError" : "No se pudo cargar el registro",
+      "saveError" : "No se pudo guardar el registro",
+      "fields" : {
+        "code" : "Code",
+        "name" : "Name",
+        "areaSquareMeters" : "Area Square Meters",
+        "status" : "Status",
+        "active" : "Active"
+      }
+    },
+    "field" : {
+      "location" : "Location"
+    }
+  },
+  "greenhouseAlert" : {
+    "list" : {
+      "title" : "GreenhouseAlert",
+      "create" : "Crear",
+      "edit" : "Editar",
+      "delete" : "Eliminar",
+      "actions" : "Acciones",
+      "empty" : "Sin registros",
+      "loadError" : "No se pudieron cargar los registros",
+      "fields" : {
+        "title" : "Title",
+        "severity" : "Severity",
+        "message" : "Message",
+        "detectedAt" : "Detected At",
+        "resolved" : "Resolved"
+      }
+    },
+    "form" : {
+      "createTitle" : "Crear GreenhouseAlert",
+      "editTitle" : "Editar GreenhouseAlert",
+      "save" : "Guardar",
+      "cancel" : "Cancelar",
+      "loadError" : "No se pudo cargar el registro",
+      "saveError" : "No se pudo guardar el registro",
+      "fields" : {
+        "title" : "Title",
+        "severity" : "Severity",
+        "message" : "Message",
+        "detectedAt" : "Detected At",
+        "resolved" : "Resolved"
+      }
+    },
+    "field" : {
+      "greenhouse" : "Greenhouse",
+      "sensor" : "Sensor"
+    }
+  },
+  "irrigationEvent" : {
+    "list" : {
+      "title" : "IrrigationEvent",
+      "create" : "Crear",
+      "edit" : "Editar",
+      "delete" : "Eliminar",
+      "actions" : "Acciones",
+      "empty" : "Sin registros",
+      "loadError" : "No se pudieron cargar los registros",
+      "fields" : {
+        "startedAt" : "Started At",
+        "endedAt" : "Ended At",
+        "waterLiters" : "Water Liters",
+        "method" : "Method",
+        "notes" : "Notes"
+      }
+    },
+    "form" : {
+      "createTitle" : "Crear IrrigationEvent",
+      "editTitle" : "Editar IrrigationEvent",
+      "save" : "Guardar",
+      "cancel" : "Cancelar",
+      "loadError" : "No se pudo cargar el registro",
+      "saveError" : "No se pudo guardar el registro",
+      "fields" : {
+        "startedAt" : "Started At",
+        "endedAt" : "Ended At",
+        "waterLiters" : "Water Liters",
+        "method" : "Method",
+        "notes" : "Notes"
+      }
+    },
+    "field" : {
+      "greenhouse" : "Greenhouse"
+    }
+  },
+  "maintenanceTask" : {
+    "list" : {
+      "title" : "MaintenanceTask",
+      "create" : "Crear",
+      "edit" : "Editar",
+      "delete" : "Eliminar",
+      "actions" : "Acciones",
+      "empty" : "Sin registros",
+      "loadError" : "No se pudieron cargar los registros",
+      "fields" : {
+        "title" : "Title",
+        "description" : "Description",
+        "scheduledAt" : "Scheduled At",
+        "completedAt" : "Completed At",
+        "status" : "Status"
+      }
+    },
+    "form" : {
+      "createTitle" : "Crear MaintenanceTask",
+      "editTitle" : "Editar MaintenanceTask",
+      "save" : "Guardar",
+      "cancel" : "Cancelar",
+      "loadError" : "No se pudo cargar el registro",
+      "saveError" : "No se pudo guardar el registro",
+      "fields" : {
+        "title" : "Title",
+        "description" : "Description",
+        "scheduledAt" : "Scheduled At",
+        "completedAt" : "Completed At",
+        "status" : "Status"
+      }
+    },
+    "field" : {
+      "greenhouse" : "Greenhouse"
+    }
+  },
+  "pestInspection" : {
+    "list" : {
+      "title" : "PestInspection",
+      "create" : "Crear",
+      "edit" : "Editar",
+      "delete" : "Eliminar",
+      "actions" : "Acciones",
+      "empty" : "Sin registros",
+      "loadError" : "No se pudieron cargar los registros",
+      "fields" : {
+        "inspectedAt" : "Inspected At",
+        "pestType" : "Pest Type",
+        "severity" : "Severity",
+        "affectedAreaSquareMeters" : "Affected Area Square Meters",
+        "treatmentApplied" : "Treatment Applied"
+      }
+    },
+    "form" : {
+      "createTitle" : "Crear PestInspection",
+      "editTitle" : "Editar PestInspection",
+      "save" : "Guardar",
+      "cancel" : "Cancelar",
+      "loadError" : "No se pudo cargar el registro",
+      "saveError" : "No se pudo guardar el registro",
+      "fields" : {
+        "inspectedAt" : "Inspected At",
+        "pestType" : "Pest Type",
+        "severity" : "Severity",
+        "affectedAreaSquareMeters" : "Affected Area Square Meters",
+        "treatmentApplied" : "Treatment Applied"
+      }
+    },
+    "field" : {
+      "cropCycle" : "Crop Cycle"
+    }
   }
 }
