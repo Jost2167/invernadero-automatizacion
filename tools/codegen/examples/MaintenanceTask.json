@@ -1,0 +1,50 @@
+{
+  "version": "1",
+  "name": "MaintenanceTask",
+  "tableName": "maintenance_tasks",
+  "fields": [
+    {
+      "name": "title",
+      "type": "String",
+      "length": 140,
+      "nullable": false
+    },
+    {
+      "name": "description",
+      "type": "String",
+      "length": 255,
+      "nullable": true
+    },
+    {
+      "name": "scheduledAt",
+      "type": "LocalDateTime",
+      "nullable": false
+    },
+    {
+      "name": "completedAt",
+      "type": "LocalDateTime",
+      "nullable": true
+    },
+    {
+      "name": "status",
+      "type": "Enum",
+      "enumValues": ["PENDING", "IN_PROGRESS", "COMPLETED", "CANCELLED"],
+      "nullable": false,
+      "defaultValue": "PENDING"
+    }
+  ],
+  "relations": [
+    {
+      "name": "greenhouse",
+      "type": "ManyToOne",
+      "target": "Greenhouse",
+      "joinColumn": "greenhouse_id",
+      "fetch": "LAZY"
+    }
+  ],
+  "options": {
+    "generateController": true,
+    "generateFrontend": true,
+    "auditable": false
+  }
+}

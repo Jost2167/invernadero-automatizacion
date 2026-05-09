@@ -1,0 +1,57 @@
+{
+  "version": "1",
+  "name": "GreenhouseAlert",
+  "tableName": "greenhouse_alerts",
+  "fields": [
+    {
+      "name": "title",
+      "type": "String",
+      "length": 140,
+      "nullable": false
+    },
+    {
+      "name": "severity",
+      "type": "Enum",
+      "enumValues": ["INFO", "WARNING", "CRITICAL"],
+      "nullable": false
+    },
+    {
+      "name": "message",
+      "type": "String",
+      "length": 255,
+      "nullable": false
+    },
+    {
+      "name": "detectedAt",
+      "type": "LocalDateTime",
+      "nullable": false
+    },
+    {
+      "name": "resolved",
+      "type": "Boolean",
+      "nullable": false,
+      "defaultValue": false
+    }
+  ],
+  "relations": [
+    {
+      "name": "greenhouse",
+      "type": "ManyToOne",
+      "target": "Greenhouse",
+      "joinColumn": "greenhouse_id",
+      "fetch": "LAZY"
+    },
+    {
+      "name": "sensor",
+      "type": "ManyToOne",
+      "target": "Sensor",
+      "joinColumn": "sensor_id",
+      "fetch": "LAZY"
+    }
+  ],
+  "options": {
+    "generateController": true,
+    "generateFrontend": true,
+    "auditable": false
+  }
+}

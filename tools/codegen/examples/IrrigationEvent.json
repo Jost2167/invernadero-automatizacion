@@ -1,0 +1,50 @@
+{
+  "version": "1",
+  "name": "IrrigationEvent",
+  "tableName": "irrigation_events",
+  "fields": [
+    {
+      "name": "startedAt",
+      "type": "LocalDateTime",
+      "nullable": false
+    },
+    {
+      "name": "endedAt",
+      "type": "LocalDateTime",
+      "nullable": true
+    },
+    {
+      "name": "waterLiters",
+      "type": "BigDecimal",
+      "precision": 10,
+      "scale": 2,
+      "nullable": false
+    },
+    {
+      "name": "method",
+      "type": "Enum",
+      "enumValues": ["DRIP", "SPRINKLER", "MANUAL"],
+      "nullable": false
+    },
+    {
+      "name": "notes",
+      "type": "String",
+      "length": 255,
+      "nullable": true
+    }
+  ],
+  "relations": [
+    {
+      "name": "greenhouse",
+      "type": "ManyToOne",
+      "target": "Greenhouse",
+      "joinColumn": "greenhouse_id",
+      "fetch": "LAZY"
+    }
+  ],
+  "options": {
+    "generateController": true,
+    "generateFrontend": true,
+    "auditable": false
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "version": "1",
+  "name": "ClimateReading",
+  "tableName": "climate_readings",
+  "fields": [
+    {
+      "name": "recordedAt",
+      "type": "LocalDateTime",
+      "nullable": false
+    },
+    {
+      "name": "temperatureCelsius",
+      "type": "BigDecimal",
+      "precision": 5,
+      "scale": 2,
+      "nullable": false
+    },
+    {
+      "name": "humidityPercent",
+      "type": "BigDecimal",
+      "precision": 5,
+      "scale": 2,
+      "nullable": false
+    },
+    {
+      "name": "co2Ppm",
+      "type": "Integer",
+      "nullable": true
+    },
+    {
+      "name": "lightLux",
+      "type": "Integer",
+      "nullable": true
+    }
+  ],
+  "relations": [
+    {
+      "name": "sensor",
+      "type": "ManyToOne",
+      "target": "Sensor",
+      "joinColumn": "sensor_id",
+      "fetch": "LAZY"
+    },
+    {
+      "name": "greenhouse",
+      "type": "ManyToOne",
+      "target": "Greenhouse",
+      "joinColumn": "greenhouse_id",
+      "fetch": "LAZY"
+    }
+  ],
+  "options": {
+    "generateController": true,
+    "generateFrontend": true,
+    "auditable": false
+  }
+}

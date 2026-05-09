@@ -1,0 +1,50 @@
+{
+  "version": "1",
+  "name": "CropCycle",
+  "tableName": "crop_cycles",
+  "fields": [
+    {
+      "name": "cropName",
+      "type": "String",
+      "length": 120,
+      "nullable": false
+    },
+    {
+      "name": "variety",
+      "type": "String",
+      "length": 120,
+      "nullable": true
+    },
+    {
+      "name": "startedAt",
+      "type": "LocalDate",
+      "nullable": false
+    },
+    {
+      "name": "expectedHarvestAt",
+      "type": "LocalDate",
+      "nullable": true
+    },
+    {
+      "name": "status",
+      "type": "Enum",
+      "enumValues": ["PLANNED", "GROWING", "HARVESTED", "CANCELLED"],
+      "nullable": false,
+      "defaultValue": "PLANNED"
+    }
+  ],
+  "relations": [
+    {
+      "name": "greenhouse",
+      "type": "ManyToOne",
+      "target": "Greenhouse",
+      "joinColumn": "greenhouse_id",
+      "fetch": "LAZY"
+    }
+  ],
+  "options": {
+    "generateController": true,
+    "generateFrontend": true,
+    "auditable": false
+  }
+}
