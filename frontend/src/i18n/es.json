@@ -36,5 +36,70 @@
     "label" : "Idioma",
     "es" : "Español",
     "en" : "Inglés"
+  },
+  "location" : {
+    "list" : {
+      "title" : "Location",
+      "create" : "Crear",
+      "edit" : "Editar",
+      "delete" : "Eliminar",
+      "actions" : "Acciones",
+      "empty" : "Sin registros",
+      "loadError" : "No se pudieron cargar los registros",
+      "fields" : {
+        "name" : "Name",
+        "description" : "Description",
+        "active" : "Active"
+      }
+    },
+    "form" : {
+      "createTitle" : "Crear Location",
+      "editTitle" : "Editar Location",
+      "save" : "Guardar",
+      "cancel" : "Cancelar",
+      "loadError" : "No se pudo cargar el registro",
+      "saveError" : "No se pudo guardar el registro",
+      "fields" : {
+        "name" : "Name",
+        "description" : "Description",
+        "active" : "Active"
+      }
+    }
+  },
+  "sensor" : {
+    "list" : {
+      "title" : "Sensor",
+      "create" : "Crear",
+      "edit" : "Editar",
+      "delete" : "Eliminar",
+      "actions" : "Acciones",
+      "empty" : "Sin registros",
+      "loadError" : "No se pudieron cargar los registros",
+      "fields" : {
+        "name" : "Name",
+        "type" : "Type",
+        "lastReadingAt" : "Last Reading At",
+        "batteryLevel" : "Battery Level",
+        "active" : "Active"
+      }
+    },
+    "form" : {
+      "createTitle" : "Crear Sensor",
+      "editTitle" : "Editar Sensor",
+      "save" : "Guardar",
+      "cancel" : "Cancelar",
+      "loadError" : "No se pudo cargar el registro",
+      "saveError" : "No se pudo guardar el registro",
+      "fields" : {
+        "name" : "Name",
+        "type" : "Type",
+        "lastReadingAt" : "Last Reading At",
+        "batteryLevel" : "Battery Level",
+        "active" : "Active"
+      }
+    },
+    "field" : {
+      "location" : "Location"
+    }
   }
 }

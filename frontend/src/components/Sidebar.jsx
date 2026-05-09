@@ -15,6 +15,8 @@ import { useTranslation } from 'react-i18next'
 
 export const NAV_MODULES = [
   { key: 'dashboard', path: '/', exact: true },
+  { key: 'location', path: '/location' },
+  { key: 'sensor', path: '/sensor' },
   // codegen:nav
 ]
 
