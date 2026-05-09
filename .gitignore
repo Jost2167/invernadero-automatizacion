@@ -33,3 +33,7 @@ backend/src/main/resources/application-dev.yml
 
 # OpenSpec
 openspec
+
+# GitHub
+.github/prompts/
+.github/skills/
