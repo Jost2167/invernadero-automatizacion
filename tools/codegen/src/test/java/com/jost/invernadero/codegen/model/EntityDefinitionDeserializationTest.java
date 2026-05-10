@@ -19,6 +19,7 @@ class EntityDefinitionDeserializationTest {
         assertThat(definition.tableName()).isEqualTo("sensors");
         assertThat(definition.relations()).isEmpty();
         assertThat(definition.options()).isEqualTo(Options.defaults());
+        assertThat(definition.i18n()).isEqualTo(I18nBlock.empty());
         assertThat(definition.fields()).hasSize(3);
 
         FieldDef id = definition.fields().get(0);
@@ -90,6 +91,36 @@ class EntityDefinitionDeserializationTest {
                 .containsExactly("LocalDateTime", "Integer", "Boolean");
         assertThat(definition.relations()).isEmpty();
         assertThat(definition.options()).isEqualTo(new Options(true, true, true));
+    }
+
+    @Test
+    void deserializesI18nBlock() throws IOException {
+        EntityDefinition definition = EntityDefinitionObjectMapper.create().readValue("""
+                {
+                  "version": "1",
+                  "name": "Sensor",
+                  "tableName": "sensors",
+                  "fields": [
+                    { "name": "name", "type": "String" }
+                  ],
+                  "i18n": {
+                    "es": {
+                      "singular": "Sensor",
+                      "plural": "Sensores",
+                      "fields": { "name": "Nombre" },
+                      "relations": { "greenhouse": "Invernadero" }
+                    }
+                  }
+                }
+                """, EntityDefinition.class);
+
+        LocaleLabels labels = definition.i18n().resolve("es");
+
+        assertThat(labels.singular()).isEqualTo("Sensor");
+        assertThat(labels.plural()).isEqualTo("Sensores");
+        assertThat(labels.fields()).containsEntry("name", "Nombre");
+        assertThat(labels.relations()).containsEntry("greenhouse", "Invernadero");
+        assertThat(definition.i18n().resolve("en")).isEqualTo(LocaleLabels.empty());
     }
 
     @Test

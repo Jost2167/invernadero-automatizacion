@@ -32,6 +32,10 @@
         "$ref": "#/$defs/relation"
       }
     },
+    "i18n": {
+      "type": "object",
+      "additionalProperties": true
+    },
     "options": {
       "$ref": "#/$defs/options"
     }

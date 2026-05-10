@@ -49,6 +49,38 @@
       "fetch": "LAZY"
     }
   ],
+  "i18n": {
+    "es": {
+      "singular": "Lectura climática",
+      "plural": "Lecturas climáticas",
+      "fields": {
+        "recordedAt": "Fecha de registro",
+        "temperatureCelsius": "Temperatura (°C)",
+        "humidityPercent": "Humedad (%)",
+        "co2Ppm": "CO2 (ppm)",
+        "lightLux": "Luz (lux)"
+      },
+      "relations": {
+        "sensor": "Sensor",
+        "greenhouse": "Invernadero"
+      }
+    },
+    "en": {
+      "singular": "Climate reading",
+      "plural": "Climate readings",
+      "fields": {
+        "recordedAt": "Recorded at",
+        "temperatureCelsius": "Temperature (°C)",
+        "humidityPercent": "Humidity (%)",
+        "co2Ppm": "CO2 (ppm)",
+        "lightLux": "Light (lux)"
+      },
+      "relations": {
+        "sensor": "Sensor",
+        "greenhouse": "Greenhouse"
+      }
+    }
+  },
   "options": {
     "generateController": true,
     "generateFrontend": true,

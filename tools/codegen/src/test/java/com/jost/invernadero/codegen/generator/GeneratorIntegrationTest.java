@@ -148,6 +148,65 @@ class GeneratorIntegrationTest {
                 .contains("// codegen:nav");
     }
 
+    @Test
+    void overwriteRefreshesGeneratedI18nEntityLabelsWithoutRemovingOtherSections() throws IOException {
+        Path esPath = tempDir.resolve("frontend/src/i18n/es.json");
+        Files.createDirectories(esPath.getParent());
+        Files.writeString(esPath, """
+                {
+                  "app": {
+                    "title": "Invernadero"
+                  },
+                  "location": {
+                    "list": {
+                      "title": "Viejo"
+                    },
+                    "form": {
+                      "fields": {
+                        "name": "Viejo nombre"
+                      }
+                    }
+                  }
+                }
+                """.stripIndent(), StandardCharsets.UTF_8);
+        EntityDefinition location = readDefinition("""
+                {
+                  "version": "1",
+                  "name": "Location",
+                  "tableName": "locations",
+                  "fields": [
+                    { "name": "name", "type": "String" }
+                  ],
+                  "relations": [],
+                  "options": {
+                    "generateController": true,
+                    "generateFrontend": true,
+                    "auditable": false
+                  },
+                  "i18n": {
+                    "es": {
+                      "singular": "Ubicación",
+                      "plural": "Ubicaciones",
+                      "fields": {
+                        "name": "Nombre"
+                      },
+                      "relations": {}
+                    }
+                  }
+                }
+                """);
+
+        GenerationResult result = new Generator(tempDir, FIXED_CLOCK)
+                .generate(location, location.options(), Mode.overwrite(true));
+
+        assertThat(result.success()).isTrue();
+        String content = Files.readString(esPath, StandardCharsets.UTF_8);
+        assertThat(content)
+                .contains("\"title\" : \"Invernadero\"")
+                .contains("\"title\" : \"Ubicaciones\"")
+                .contains("\"name\" : \"Nombre\"");
+    }
+
     private void prepareBackendWorkspace(Path workspace) throws IOException {
         Path repo = repoRoot();
         Files.createDirectories(workspace);
@@ -219,5 +278,9 @@ class GeneratorIntegrationTest {
                     .isNotNull();
             return EntityDefinitionObjectMapper.create().readValue(input, EntityDefinition.class);
         }
+    }
+
+    private EntityDefinition readDefinition(String content) throws IOException {
+        return EntityDefinitionObjectMapper.create().readValue(content, EntityDefinition.class);
     }
 }

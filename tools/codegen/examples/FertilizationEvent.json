@@ -43,6 +43,36 @@
       "fetch": "LAZY"
     }
   ],
+  "i18n": {
+    "es": {
+      "singular": "Evento de fertilización",
+      "plural": "Eventos de fertilización",
+      "fields": {
+        "appliedAt": "Fecha de aplicación",
+        "fertilizerName": "Fertilizante",
+        "dose": "Dosis",
+        "unit": "Unidad",
+        "notes": "Notas"
+      },
+      "relations": {
+        "cropCycle": "Ciclo de cultivo"
+      }
+    },
+    "en": {
+      "singular": "Fertilization event",
+      "plural": "Fertilization events",
+      "fields": {
+        "appliedAt": "Application date",
+        "fertilizerName": "Fertilizer name",
+        "dose": "Dose",
+        "unit": "Unit",
+        "notes": "Notes"
+      },
+      "relations": {
+        "cropCycle": "Crop cycle"
+      }
+    }
+  },
   "options": {
     "generateController": true,
     "generateFrontend": true,
