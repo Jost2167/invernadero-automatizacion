@@ -43,6 +43,36 @@
       "fetch": "LAZY"
     }
   ],
+  "i18n": {
+    "es": {
+      "singular": "Inspección de plagas",
+      "plural": "Inspecciones de plagas",
+      "fields": {
+        "inspectedAt": "Fecha de inspección",
+        "pestType": "Tipo de plaga",
+        "severity": "Severidad",
+        "affectedAreaSquareMeters": "Área afectada (m²)",
+        "treatmentApplied": "Tratamiento aplicado"
+      },
+      "relations": {
+        "cropCycle": "Ciclo de cultivo"
+      }
+    },
+    "en": {
+      "singular": "Pest inspection",
+      "plural": "Pest inspections",
+      "fields": {
+        "inspectedAt": "Inspected at",
+        "pestType": "Pest type",
+        "severity": "Severity",
+        "affectedAreaSquareMeters": "Affected area (m²)",
+        "treatmentApplied": "Treatment applied"
+      },
+      "relations": {
+        "cropCycle": "Crop cycle"
+      }
+    }
+  },
   "options": {
     "generateController": true,
     "generateFrontend": true,

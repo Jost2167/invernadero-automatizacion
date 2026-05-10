@@ -42,6 +42,36 @@
       "fetch": "LAZY"
     }
   ],
+  "i18n": {
+    "es": {
+      "singular": "Tarea de mantenimiento",
+      "plural": "Tareas de mantenimiento",
+      "fields": {
+        "title": "Título",
+        "description": "Descripción",
+        "scheduledAt": "Programada para",
+        "completedAt": "Completada el",
+        "status": "Estado"
+      },
+      "relations": {
+        "greenhouse": "Invernadero"
+      }
+    },
+    "en": {
+      "singular": "Maintenance task",
+      "plural": "Maintenance tasks",
+      "fields": {
+        "title": "Title",
+        "description": "Description",
+        "scheduledAt": "Scheduled at",
+        "completedAt": "Completed at",
+        "status": "Status"
+      },
+      "relations": {
+        "greenhouse": "Greenhouse"
+      }
+    }
+  },
   "options": {
     "generateController": true,
     "generateFrontend": true,

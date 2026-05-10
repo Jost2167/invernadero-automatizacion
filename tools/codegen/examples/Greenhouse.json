@@ -46,6 +46,36 @@
       "fetch": "LAZY"
     }
   ],
+  "i18n": {
+    "es": {
+      "singular": "Invernadero",
+      "plural": "Invernaderos",
+      "fields": {
+        "code": "Código",
+        "name": "Nombre",
+        "areaSquareMeters": "Área (m²)",
+        "status": "Estado",
+        "active": "Activo"
+      },
+      "relations": {
+        "location": "Ubicación"
+      }
+    },
+    "en": {
+      "singular": "Greenhouse",
+      "plural": "Greenhouses",
+      "fields": {
+        "code": "Code",
+        "name": "Name",
+        "areaSquareMeters": "Area (m²)",
+        "status": "Status",
+        "active": "Active"
+      },
+      "relations": {
+        "location": "Location"
+      }
+    }
+  },
   "options": {
     "generateController": true,
     "generateFrontend": true,

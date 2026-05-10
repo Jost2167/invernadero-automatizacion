@@ -71,7 +71,7 @@ public class Generator {
     }
 
     public GenerationResult generate(EntityDefinition definition, Options options, Mode mode) {
-        List<FileToWrite> files = collectFiles(definition, options);
+        List<FileToWrite> files = collectFiles(definition, options, mode);
         if (files.stream().anyMatch(file -> file.content() == null)) {
             return GenerationResult.error(files, files.stream()
                     .filter(file -> file.content() == null)
@@ -108,7 +108,7 @@ public class Generator {
                 .toList());
     }
 
-    private List<FileToWrite> collectFiles(EntityDefinition definition, Options options) {
+    private List<FileToWrite> collectFiles(EntityDefinition definition, Options options, Mode mode) {
         try {
             Map<String, Object> model = templateModelBuilder.build(definition);
             List<FileToWrite> files = new ArrayList<>();
@@ -137,7 +137,7 @@ public class Generator {
                     render(migrationHandlebars, "create-table", migrationModel)));
 
             if (options.generateFrontend()) {
-                collectFrontendFiles(definition, model, files, entityName, entityKebab);
+                collectFrontendFiles(definition, model, files, entityName, entityKebab, mode.isOverwrite());
             }
 
             return files;
@@ -151,7 +151,8 @@ public class Generator {
             Map<String, Object> model,
             List<FileToWrite> files,
             String entityName,
-            String entityKebab) throws IOException {
+            String entityKebab,
+            boolean overwriteTranslations) throws IOException {
         files.add(create(frontendRoot + "/src/api/" + entityKebab + ".js", render(frontendHandlebars, "api-client", model)));
         files.add(create(frontendRoot + "/src/pages/" + entityKebab + "/" + entityName + "ListPage.jsx",
                 render(frontendHandlebars, "list-page", model)));
@@ -178,14 +179,18 @@ public class Generator {
             files.add(update(frontendRoot + "/src/components/Sidebar.jsx", navResult.content()));
         }
 
-        addI18nUpdate(definition, files, frontendRoot + "/src/i18n/es.json");
-        addI18nUpdate(definition, files, frontendRoot + "/src/i18n/en.json");
+        addI18nUpdate(definition, files, frontendRoot + "/src/i18n/es.json", overwriteTranslations);
+        addI18nUpdate(definition, files, frontendRoot + "/src/i18n/en.json", overwriteTranslations);
     }
 
-    private void addI18nUpdate(EntityDefinition definition, List<FileToWrite> files, String relativePath) {
+    private void addI18nUpdate(
+            EntityDefinition definition,
+            List<FileToWrite> files,
+            String relativePath,
+            boolean overwriteTranslations) {
         Path path = root.resolve(relativePath);
         if (Files.exists(path)) {
-            InjectionResult result = i18nInjector.inject(path, definition);
+            InjectionResult result = i18nInjector.inject(path, definition, overwriteTranslations);
             if (!result.success()) {
                 throw new IllegalStateException(result.error());
             }
