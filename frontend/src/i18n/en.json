@@ -23,7 +23,17 @@
   "sidebar" : {
     "dashboard" : "Dashboard",
     "openMenu" : "Open menu",
-    "closeMenu" : "Close menu"
+    "closeMenu" : "Close menu",
+    "climate-reading" : "Climate readings",
+    "crop-cycle" : "Crop cycles",
+    "fertilization-event" : "Fertilization events",
+    "greenhouse" : "Greenhouses",
+    "greenhouse-alert" : "Greenhouse alerts",
+    "irrigation-event" : "Irrigation events",
+    "location" : "Locations",
+    "maintenance-task" : "Maintenance tasks",
+    "pest-inspection" : "Pest inspections",
+    "sensor" : "Sensors"
   },
   "home" : {
     "welcome" : "Welcome, {{name}}",
@@ -36,5 +46,370 @@
     "label" : "Language",
     "es" : "Spanish",
     "en" : "English"
+  },
+  "climateReading" : {
+    "list" : {
+      "title" : "Climate readings",
+      "create" : "Create",
+      "edit" : "Edit",
+      "delete" : "Delete",
+      "actions" : "Actions",
+      "empty" : "No records",
+      "loadError" : "Could not load records",
+      "fields" : {
+        "id" : "ID",
+        "recordedAt" : "Recorded at",
+        "temperatureCelsius" : "Temperature (°C)",
+        "humidityPercent" : "Humidity (%)",
+        "co2Ppm" : "CO2 (ppm)",
+        "lightLux" : "Light (lux)"
+      }
+    },
+    "form" : {
+      "createTitle" : "Create Climate reading",
+      "editTitle" : "Edit Climate reading",
+      "save" : "Save",
+      "cancel" : "Cancel",
+      "loadError" : "Could not load the record",
+      "saveError" : "Could not save the record",
+      "fields" : {
+        "recordedAt" : "Recorded at",
+        "temperatureCelsius" : "Temperature (°C)",
+        "humidityPercent" : "Humidity (%)",
+        "co2Ppm" : "CO2 (ppm)",
+        "lightLux" : "Light (lux)"
+      }
+    },
+    "field" : {
+      "sensor" : "Sensor",
+      "greenhouse" : "Greenhouse"
+    }
+  },
+  "cropCycle" : {
+    "list" : {
+      "title" : "Crop cycles",
+      "create" : "Create",
+      "edit" : "Edit",
+      "delete" : "Delete",
+      "actions" : "Actions",
+      "empty" : "No records",
+      "loadError" : "Could not load records",
+      "fields" : {
+        "id" : "ID",
+        "cropName" : "Crop name",
+        "variety" : "Variety",
+        "startedAt" : "Start date",
+        "expectedHarvestAt" : "Expected harvest date",
+        "status" : "Status"
+      }
+    },
+    "form" : {
+      "createTitle" : "Create Crop cycle",
+      "editTitle" : "Edit Crop cycle",
+      "save" : "Save",
+      "cancel" : "Cancel",
+      "loadError" : "Could not load the record",
+      "saveError" : "Could not save the record",
+      "fields" : {
+        "cropName" : "Crop name",
+        "variety" : "Variety",
+        "startedAt" : "Start date",
+        "expectedHarvestAt" : "Expected harvest date",
+        "status" : "Status"
+      }
+    },
+    "field" : {
+      "greenhouse" : "Greenhouse"
+    }
+  },
+  "fertilizationEvent" : {
+    "list" : {
+      "title" : "Fertilization events",
+      "create" : "Create",
+      "edit" : "Edit",
+      "delete" : "Delete",
+      "actions" : "Actions",
+      "empty" : "No records",
+      "loadError" : "Could not load records",
+      "fields" : {
+        "id" : "ID",
+        "appliedAt" : "Application date",
+        "fertilizerName" : "Fertilizer name",
+        "dose" : "Dose",
+        "unit" : "Unit",
+        "notes" : "Notes"
+      }
+    },
+    "form" : {
+      "createTitle" : "Create Fertilization event",
+      "editTitle" : "Edit Fertilization event",
+      "save" : "Save",
+      "cancel" : "Cancel",
+      "loadError" : "Could not load the record",
+      "saveError" : "Could not save the record",
+      "fields" : {
+        "appliedAt" : "Application date",
+        "fertilizerName" : "Fertilizer name",
+        "dose" : "Dose",
+        "unit" : "Unit",
+        "notes" : "Notes"
+      }
+    },
+    "field" : {
+      "cropCycle" : "Crop cycle"
+    }
+  },
+  "greenhouse" : {
+    "list" : {
+      "title" : "Greenhouses",
+      "create" : "Create",
+      "edit" : "Edit",
+      "delete" : "Delete",
+      "actions" : "Actions",
+      "empty" : "No records",
+      "loadError" : "Could not load records",
+      "fields" : {
+        "id" : "ID",
+        "code" : "Code",
+        "name" : "Name",
+        "areaSquareMeters" : "Area (m²)",
+        "status" : "Status",
+        "active" : "Active"
+      }
+    },
+    "form" : {
+      "createTitle" : "Create Greenhouse",
+      "editTitle" : "Edit Greenhouse",
+      "save" : "Save",
+      "cancel" : "Cancel",
+      "loadError" : "Could not load the record",
+      "saveError" : "Could not save the record",
+      "fields" : {
+        "code" : "Code",
+        "name" : "Name",
+        "areaSquareMeters" : "Area (m²)",
+        "status" : "Status",
+        "active" : "Active"
+      }
+    },
+    "field" : {
+      "location" : "Location"
+    }
+  },
+  "greenhouseAlert" : {
+    "list" : {
+      "title" : "Greenhouse alerts",
+      "create" : "Create",
+      "edit" : "Edit",
+      "delete" : "Delete",
+      "actions" : "Actions",
+      "empty" : "No records",
+      "loadError" : "Could not load records",
+      "fields" : {
+        "id" : "ID",
+        "title" : "Title",
+        "severity" : "Severity",
+        "message" : "Message",
+        "detectedAt" : "Detected at",
+        "resolved" : "Resolved"
+      }
+    },
+    "form" : {
+      "createTitle" : "Create Greenhouse alert",
+      "editTitle" : "Edit Greenhouse alert",
+      "save" : "Save",
+      "cancel" : "Cancel",
+      "loadError" : "Could not load the record",
+      "saveError" : "Could not save the record",
+      "fields" : {
+        "title" : "Title",
+        "severity" : "Severity",
+        "message" : "Message",
+        "detectedAt" : "Detected at",
+        "resolved" : "Resolved"
+      }
+    },
+    "field" : {
+      "greenhouse" : "Greenhouse",
+      "sensor" : "Sensor"
+    }
+  },
+  "irrigationEvent" : {
+    "list" : {
+      "title" : "Irrigation events",
+      "create" : "Create",
+      "edit" : "Edit",
+      "delete" : "Delete",
+      "actions" : "Actions",
+      "empty" : "No records",
+      "loadError" : "Could not load records",
+      "fields" : {
+        "id" : "ID",
+        "startedAt" : "Started at",
+        "endedAt" : "Ended at",
+        "waterLiters" : "Water (liters)",
+        "method" : "Method",
+        "notes" : "Notes"
+      }
+    },
+    "form" : {
+      "createTitle" : "Create Irrigation event",
+      "editTitle" : "Edit Irrigation event",
+      "save" : "Save",
+      "cancel" : "Cancel",
+      "loadError" : "Could not load the record",
+      "saveError" : "Could not save the record",
+      "fields" : {
+        "startedAt" : "Started at",
+        "endedAt" : "Ended at",
+        "waterLiters" : "Water (liters)",
+        "method" : "Method",
+        "notes" : "Notes"
+      }
+    },
+    "field" : {
+      "greenhouse" : "Greenhouse"
+    }
+  },
+  "location" : {
+    "list" : {
+      "title" : "Locations",
+      "create" : "Create",
+      "edit" : "Edit",
+      "delete" : "Delete",
+      "actions" : "Actions",
+      "empty" : "No records",
+      "loadError" : "Could not load records",
+      "fields" : {
+        "id" : "ID",
+        "name" : "Name",
+        "description" : "Description",
+        "active" : "Active"
+      }
+    },
+    "form" : {
+      "createTitle" : "Create Location",
+      "editTitle" : "Edit Location",
+      "save" : "Save",
+      "cancel" : "Cancel",
+      "loadError" : "Could not load the record",
+      "saveError" : "Could not save the record",
+      "fields" : {
+        "name" : "Name",
+        "description" : "Description",
+        "active" : "Active"
+      }
+    }
+  },
+  "maintenanceTask" : {
+    "list" : {
+      "title" : "Maintenance tasks",
+      "create" : "Create",
+      "edit" : "Edit",
+      "delete" : "Delete",
+      "actions" : "Actions",
+      "empty" : "No records",
+      "loadError" : "Could not load records",
+      "fields" : {
+        "id" : "ID",
+        "title" : "Title",
+        "description" : "Description",
+        "scheduledAt" : "Scheduled at",
+        "completedAt" : "Completed at",
+        "status" : "Status"
+      }
+    },
+    "form" : {
+      "createTitle" : "Create Maintenance task",
+      "editTitle" : "Edit Maintenance task",
+      "save" : "Save",
+      "cancel" : "Cancel",
+      "loadError" : "Could not load the record",
+      "saveError" : "Could not save the record",
+      "fields" : {
+        "title" : "Title",
+        "description" : "Description",
+        "scheduledAt" : "Scheduled at",
+        "completedAt" : "Completed at",
+        "status" : "Status"
+      }
+    },
+    "field" : {
+      "greenhouse" : "Greenhouse"
+    }
+  },
+  "pestInspection" : {
+    "list" : {
+      "title" : "Pest inspections",
+      "create" : "Create",
+      "edit" : "Edit",
+      "delete" : "Delete",
+      "actions" : "Actions",
+      "empty" : "No records",
+      "loadError" : "Could not load records",
+      "fields" : {
+        "id" : "ID",
+        "inspectedAt" : "Inspected at",
+        "pestType" : "Pest type",
+        "severity" : "Severity",
+        "affectedAreaSquareMeters" : "Affected area (m²)",
+        "treatmentApplied" : "Treatment applied"
+      }
+    },
+    "form" : {
+      "createTitle" : "Create Pest inspection",
+      "editTitle" : "Edit Pest inspection",
+      "save" : "Save",
+      "cancel" : "Cancel",
+      "loadError" : "Could not load the record",
+      "saveError" : "Could not save the record",
+      "fields" : {
+        "inspectedAt" : "Inspected at",
+        "pestType" : "Pest type",
+        "severity" : "Severity",
+        "affectedAreaSquareMeters" : "Affected area (m²)",
+        "treatmentApplied" : "Treatment applied"
+      }
+    },
+    "field" : {
+      "cropCycle" : "Crop cycle"
+    }
+  },
+  "sensor" : {
+    "list" : {
+      "title" : "Sensors",
+      "create" : "Create",
+      "edit" : "Edit",
+      "delete" : "Delete",
+      "actions" : "Actions",
+      "empty" : "No records",
+      "loadError" : "Could not load records",
+      "fields" : {
+        "id" : "ID",
+        "name" : "Name",
+        "type" : "Type",
+        "lastReadingAt" : "Last reading at",
+        "batteryLevel" : "Battery level",
+        "active" : "Active"
+      }
+    },
+    "form" : {
+      "createTitle" : "Create Sensor",
+      "editTitle" : "Edit Sensor",
+      "save" : "Save",
+      "cancel" : "Cancel",
+      "loadError" : "Could not load the record",
+      "saveError" : "Could not save the record",
+      "fields" : {
+        "name" : "Name",
+        "type" : "Type",
+        "lastReadingAt" : "Last reading at",
+        "batteryLevel" : "Battery level",
+        "active" : "Active"
+      }
+    },
+    "field" : {
+      "location" : "Location"
+    }
   }
 }
