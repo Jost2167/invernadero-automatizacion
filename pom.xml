@@ -19,6 +19,7 @@
     <modules>
         <module>backend</module>
         <module>tools/codegen</module>
+        <module>tools/taiga-sync</module>
     </modules>
 
     <properties>

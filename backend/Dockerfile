@@ -4,11 +4,12 @@
 FROM maven:3.9-eclipse-temurin-17 AS build
 WORKDIR /app
 
-# El pom.xml raíz declara tools/codegen como módulo — Maven necesita su pom.xml
+# El pom.xml raíz declara módulos en tools — Maven necesita sus pom.xml
 # para validar la estructura aunque no lo compilemos
 COPY pom.xml ./pom.xml
 COPY backend/pom.xml ./backend/pom.xml
 COPY tools/codegen/pom.xml ./tools/codegen/pom.xml
+COPY tools/taiga-sync/pom.xml ./tools/taiga-sync/pom.xml
 RUN mvn -pl backend dependency:go-offline -q
 
 COPY backend/src ./backend/src

@@ -4,6 +4,7 @@ WORKDIR /app
 COPY pom.xml ./pom.xml
 COPY backend/pom.xml ./backend/pom.xml
 COPY tools/codegen/pom.xml ./tools/codegen/pom.xml
+COPY tools/taiga-sync/pom.xml ./tools/taiga-sync/pom.xml
 RUN mvn -pl backend dependency:go-offline -q
 
 COPY backend/src ./backend/src

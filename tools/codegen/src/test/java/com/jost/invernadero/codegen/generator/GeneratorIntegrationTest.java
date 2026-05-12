@@ -217,6 +217,7 @@ class GeneratorIntegrationTest {
         copyFile(repo.resolve("backend/pom.xml"), workspace.resolve("backend/pom.xml"));
         copyDirectory(repo.resolve("backend/src/main"), workspace.resolve("backend/src/main"));
         copyFile(repo.resolve("tools/codegen/pom.xml"), workspace.resolve("tools/codegen/pom.xml"));
+        copyFile(repo.resolve("tools/taiga-sync/pom.xml"), workspace.resolve("tools/taiga-sync/pom.xml"));
     }
 
     private List<String> mavenCompileCommand() {
