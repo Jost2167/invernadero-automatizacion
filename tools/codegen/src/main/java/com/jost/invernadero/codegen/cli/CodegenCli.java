@@ -8,7 +8,7 @@ import picocli.CommandLine.Spec;
 @Command(name = "codegen",
         mixinStandardHelpOptions = true,
         version = "1.0",
-        subcommands = {ValidateCommand.class, GenerateCommand.class},
+        subcommands = {ValidateCommand.class, GenerateCommand.class, ExportExamplesPdfCommand.class},
         description = "Generador de codigo para entidades del invernadero")
 public class CodegenCli implements Runnable {
 

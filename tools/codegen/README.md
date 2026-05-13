@@ -95,6 +95,41 @@ java -jar tools/codegen/target/codegen.jar generate tools/codegen/examples/Senso
 java -jar tools/codegen/target/codegen.jar generate tools/codegen/examples/Sensor.json --overwrite --yes
 ```
 
+## Exportar ejemplos a PDF
+
+El comando `export-examples-pdf` recorre un directorio de definiciones JSON, las valida y genera un único documento PDF con una sección por entidad.
+
+```powershell
+java -jar tools/codegen/target/codegen.jar export-examples-pdf
+```
+
+Opciones:
+
+| Opcion | Default | Descripcion |
+|---|---|---|
+| `--examples-dir <dir>` | `tools/codegen/examples` | Directorio con los archivos `.json` a exportar (solo hijos directos). |
+| `--output <ruta>` | `tools/codegen/examples-export.pdf` | Ruta del PDF generado. Los directorios intermedios se crean automaticamente. |
+
+Ejemplos:
+
+```powershell
+# Usar defaults (ejemplos del repo, PDF en tools/codegen/examples-export.pdf)
+java -jar tools/codegen/target/codegen.jar export-examples-pdf
+
+# Directorio y salida personalizados
+java -jar tools/codegen/target/codegen.jar export-examples-pdf \
+  --examples-dir mis-entidades \
+  --output docs/entidades.pdf
+```
+
+Codigos de salida:
+
+- `0` — PDF generado correctamente.
+- `1` — Uno o mas archivos JSON son invalidos; el PDF **no** se crea.
+- `2` — Error de I/O (directorio no encontrado, permisos, etc.).
+
+Cada seccion del PDF incluye: nombre del archivo fuente, nombre de la entidad, tabla, campos con metadatos, relaciones, opciones de generacion y etiquetas i18n por locale.
+
 ## Troubleshooting
 
 ### Falta `// codegen:routes`

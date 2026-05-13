@@ -30,6 +30,7 @@ backend/src/main/resources/application-dev.yml
 # Claude / herramientas locales
 .claude/
 .opencode/
+.codex/
 
 # OpenSpec
 openspec
