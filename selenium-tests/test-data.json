@@ -1,0 +1,51 @@
+{
+  "timeout": 10,
+  "models": [
+    {
+      "name": "Location",
+      "formUrl": "/location/new",
+      "fields": [
+        {
+          "selector": "(//form//input[@type='text'])[1]",
+          "value": "Ubicacion Selenium ${RUN_ID}"
+        },
+        {
+          "selector": "(//form//input[@type='text'])[2]",
+          "value": "Zona creada por la suite Selenium ${RUN_ID}"
+        },
+        {
+          "selector": "(//form//label[.//input[@type='checkbox']])[1]",
+          "value": "true"
+        }
+      ],
+      "successIndicator": "//table//*[contains(normalize-space(), 'Ubicacion Selenium ${RUN_ID}')]"
+    },
+    {
+      "name": "Greenhouse",
+      "formUrl": "/greenhouse/new",
+      "fields": [
+        {
+          "selector": "(//form//input[@type='text'])[1]",
+          "value": "GH-${RUN_ID}"
+        },
+        {
+          "selector": "(//form//input[@type='text'])[2]",
+          "value": "Invernadero Selenium ${RUN_ID}"
+        },
+        {
+          "selector": "(//form//input[@type='number'])[1]",
+          "value": "120.50"
+        },
+        {
+          "selector": "(//form//*[@role='combobox'])[1]",
+          "value": "ACTIVE"
+        },
+        {
+          "selector": "(//form//label[.//input[@type='checkbox']])[1]",
+          "value": "true"
+        }
+      ],
+      "successIndicator": "//table//*[contains(normalize-space(), 'GH-${RUN_ID}')]"
+    }
+  ]
+}

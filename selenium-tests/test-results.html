@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resultados Selenium CRUD</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f6f8f7;
+      color: #1f2933;
+    }
+    body {
+      margin: 0;
+      padding: 32px;
+    }
+    main {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+    }
+    .muted {
+      color: #5c6b73;
+      margin: 0 0 24px;
+    }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin: 24px 0;
+    }
+    .metric {
+      background: #ffffff;
+      border: 1px solid #d9e2df;
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .metric span {
+      display: block;
+      color: #5c6b73;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .metric strong {
+      display: block;
+      margin-top: 8px;
+      font-size: 24px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #ffffff;
+      border: 1px solid #d9e2df;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 12px 14px;
+      text-align: left;
+      border-bottom: 1px solid #e6ecea;
+      vertical-align: top;
+    }
+    th {
+      background: #eef4f1;
+      font-size: 13px;
+    }
+    tr:last-child td {
+      border-bottom: 0;
+    }
+    .status {
+      display: inline-block;
+      min-width: 72px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+    }
+    .PASSED {
+      color: #0f5132;
+      background: #d1e7dd;
+    }
+    .FAILED {
+      color: #842029;
+      background: #f8d7da;
+    }
+    .ERROR {
+      color: #664d03;
+      background: #fff3cd;
+    }
+    .message {
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Resultados Selenium CRUD</h1>
+    <p class="muted">2/2 pruebas pasadas. Tiempo total: 18.883s.</p>
+    <section class="summary" aria-label="Resumen ejecutivo">
+      <div class="metric"><span>Total</span><strong>2</strong></div>
+      <div class="metric"><span>PASSED</span><strong>2</strong></div>
+      <div class="metric"><span>FAILED</span><strong>0</strong></div>
+      <div class="metric"><span>ERROR</span><strong>0</strong></div>
+      <div class="metric"><span>Tiempo total</span><strong>18.883s</strong></div>
+    </section>
+    <table>
+      <thead>
+        <tr>
+          <th>Modelo</th>
+          <th>Estado</th>
+          <th>Duracion</th>
+          <th>Mensaje</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+  <td>Location</td>
+  <td><span class="status PASSED">PASSED</span></td>
+  <td>7.642s</td>
+  <td class="message"></td>
+</tr>
+<tr>
+  <td>Greenhouse</td>
+  <td><span class="status PASSED">PASSED</span></td>
+  <td>11.241s</td>
+  <td class="message"></td>
+</tr>
+
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>

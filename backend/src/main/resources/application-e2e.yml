@@ -1,0 +1,40 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:e2edb;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: false
+    open-in-view: false
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: e2e-client-id
+            client-secret: e2e-client-secret
+            scope:
+              - email
+              - profile
+
+app:
+  jwt:
+    secret: e2e-secret-e2e-secret-e2e-secret-123456
+    expiration-ms: 3600000
+  oauth2:
+    auto-register: true
+    redirect-uri: http://localhost:5173/auth/callback
+  cors:
+    allowed-origins:
+      - http://localhost:5173
+      - http://127.0.0.1:5173
+  e2e:
+    user-email: e2e@example.com
