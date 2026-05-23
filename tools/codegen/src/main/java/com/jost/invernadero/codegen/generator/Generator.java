@@ -115,14 +115,17 @@ public class Generator {
             String entityName = definition.name();
             String entityKebab = (String) model.get("entityKebab");
             String backendBase = backendRoot + "/src/main/java/com/jost/invernadero/automatizacion/";
+            String backendTestBase = backendRoot + "/src/test/java/com/jost/invernadero/automatizacion/";
 
             files.add(create(backendBase + "entity/" + entityName + ".java", render(backendHandlebars, "entity", model)));
             files.add(create(backendBase + "repository/" + entityName + "Repository.java", render(backendHandlebars, "repository", model)));
             files.add(create(backendBase + "service/" + entityName + "Service.java", render(backendHandlebars, "service", model)));
             files.add(create(backendBase + "service/" + entityName + "ServiceImpl.java", render(backendHandlebars, "service-impl", model)));
             files.add(create(backendBase + "dto/" + entityName + "Dto.java", render(backendHandlebars, "dto", model)));
+            files.add(create(backendTestBase + "service/" + entityName + "ServiceTest.java", render(backendHandlebars, "service-test", model)));
             if (options.generateController()) {
                 files.add(create(backendBase + "controller/" + entityName + "Controller.java", render(backendHandlebars, "controller", model)));
+                files.add(create(backendTestBase + "controller/" + entityName + "ControllerTest.java", render(backendHandlebars, "controller-test", model)));
             }
 
             @SuppressWarnings("unchecked")

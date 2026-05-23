@@ -42,7 +42,9 @@ class GeneratorIntegrationTest {
                 "backend/src/main/java/com/jost/invernadero/automatizacion/repository/SensorRepository.java",
                 "backend/src/main/java/com/jost/invernadero/automatizacion/service/SensorService.java",
                 "backend/src/main/java/com/jost/invernadero/automatizacion/service/SensorServiceImpl.java",
-                "backend/src/main/resources/db/migration/V20260506131415123__create_sensors.sql");
+                "backend/src/main/resources/db/migration/V20260506131415123__create_sensors.sql",
+                "backend/src/test/java/com/jost/invernadero/automatizacion/controller/SensorControllerTest.java",
+                "backend/src/test/java/com/jost/invernadero/automatizacion/service/SensorServiceTest.java");
 
         assertThat(readGenerated("backend/src/main/java/com/jost/invernadero/automatizacion/entity/Sensor.java"))
                 .contains("package com.jost.invernadero.automatizacion.entity;")
@@ -65,6 +67,13 @@ class GeneratorIntegrationTest {
                             active BOOLEAN NOT NULL DEFAULT TRUE
                         );
                         """.stripIndent());
+        assertThat(readGenerated("backend/src/test/java/com/jost/invernadero/automatizacion/service/SensorServiceTest.java"))
+                .contains("@ExtendWith(MockitoExtension.class)")
+                .contains("class SensorServiceTest");
+        assertThat(readGenerated("backend/src/test/java/com/jost/invernadero/automatizacion/controller/SensorControllerTest.java"))
+                .contains("controllers = SensorController.class")
+                .contains("JwtAuthenticationFilter.class")
+                .contains("class SensorControllerTest");
     }
 
     @Test

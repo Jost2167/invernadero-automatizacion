@@ -1,0 +1,68 @@
+package {{servicePackage}};
+
+import {{entityPackage}}.{{entityName}};
+import {{repositoryPackage}}.{{entityName}}Repository;
+import java.util.List;
+import java.util.Optional;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
+class {{entityName}}ServiceTest {
+
+    @Mock
+    private {{entityName}}Repository {{entityCamel}}Repository;
+
+    @InjectMocks
+    private {{entityName}}ServiceImpl {{entityCamel}}Service;
+
+    @Test
+    void findAll_delegatesToRepository() {
+        {{entityName}} entity = new {{entityName}}();
+        when({{entityCamel}}Repository.findAll()).thenReturn(List.of(entity));
+
+        List<{{entityName}}> result = {{entityCamel}}Service.findAll();
+
+        assertThat(result).containsExactly(entity);
+        verify({{entityCamel}}Repository).findAll();
+    }
+
+    @Test
+    void findById_delegatesToRepository() {
+        Long id = 1L;
+        {{entityName}} entity = new {{entityName}}();
+        when({{entityCamel}}Repository.findById(id)).thenReturn(Optional.of(entity));
+
+        Optional<{{entityName}}> result = {{entityCamel}}Service.findById(id);
+
+        assertThat(result).contains(entity);
+        verify({{entityCamel}}Repository).findById(id);
+    }
+
+    @Test
+    void save_delegatesToRepository() {
+        {{entityName}} entity = new {{entityName}}();
+        when({{entityCamel}}Repository.save(entity)).thenReturn(entity);
+
+        {{entityName}} result = {{entityCamel}}Service.save(entity);
+
+        assertThat(result).isSameAs(entity);
+        verify({{entityCamel}}Repository).save(entity);
+    }
+
+    @Test
+    void deleteById_delegatesToRepository() {
+        Long id = 1L;
+
+        {{entityCamel}}Service.deleteById(id);
+
+        verify({{entityCamel}}Repository).deleteById(id);
+    }
+}
