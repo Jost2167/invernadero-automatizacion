@@ -24,6 +24,7 @@
     "dashboard" : "Dashboard",
     "openMenu" : "Open menu",
     "closeMenu" : "Close menu",
+    "docs" : "Documentation",
     "climate-reading" : "Climate readings",
     "crop-cycle" : "Crop cycles",
     "fertilization-event" : "Fertilization events",
@@ -373,6 +374,19 @@
     },
     "field" : {
       "cropCycle" : "Crop cycle"
+    }
+  },
+  "docs" : {
+    "title" : "Documentation",
+    "subtitle" : "Download the project reference documents.",
+    "download" : "Download",
+    "pdf" : {
+      "title" : "JSON Models Export",
+      "description" : "PDF with the definitions of all system entities."
+    },
+    "er" : {
+      "title" : "Entity-Relationship Diagram",
+      "description" : "ER diagram in Mermaid format with all tables and relationships."
     }
   },
   "sensor" : {

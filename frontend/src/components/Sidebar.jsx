@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next'
 
 export const NAV_MODULES = [
   { key: 'dashboard', path: '/', exact: true },
+  { key: 'docs', path: '/docs' },
   { key: 'climate-reading', path: '/climate-reading' },
   { key: 'crop-cycle', path: '/crop-cycle' },
   { key: 'fertilization-event', path: '/fertilization-event' },
