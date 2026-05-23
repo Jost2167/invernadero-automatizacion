@@ -40,7 +40,16 @@ public class SecurityConfig {
                 .logout(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login/**", "/oauth2/**", "/error", "/e2e/**").permitAll()
+                        .requestMatchers(
+                                "/login/**",
+                                "/oauth2/**",
+                                "/error",
+                                "/auth/swagger-token",
+                                "/e2e/**",
+                                "/v3/api-docs/**",
+                                "/swagger-ui.html",
+                                "/swagger-ui/**")
+                        .permitAll()
                         .anyRequest().authenticated())
                 .oauth2Login(oauth2 -> oauth2
                         .userInfoEndpoint(u -> u.userService(customOAuth2UserService))
