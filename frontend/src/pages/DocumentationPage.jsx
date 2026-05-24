@@ -20,9 +20,9 @@ export default function DocumentationPage() {
 
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         <Card variant="outlined">
-          <CardContent sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
+          <CardContent sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: { xs: 'wrap', sm: 'nowrap' } }}>
             <PictureAsPdfIcon sx={{ fontSize: 40, color: 'error.main', flexShrink: 0 }} />
-            <Box sx={{ flexGrow: 1 }}>
+            <Box sx={{ flex: '1 1 auto', minWidth: 0 }}>
               <Typography variant="subtitle1" fontWeight={600}>
                 {t('docs.pdf.title')}
               </Typography>
@@ -36,7 +36,7 @@ export default function DocumentationPage() {
               component="a"
               href="/docs/examples-export.pdf"
               download="examples-export.pdf"
-              sx={{ flexShrink: 0 }}
+              sx={{ flexShrink: 0, ml: { sm: 'auto' } }}
             >
               {t('docs.download')}
             </Button>
@@ -46,9 +46,9 @@ export default function DocumentationPage() {
         <Divider />
 
         <Card variant="outlined">
-          <CardContent sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
+          <CardContent sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: { xs: 'wrap', sm: 'nowrap' } }}>
             <AccountTreeIcon sx={{ fontSize: 40, color: 'primary.main', flexShrink: 0 }} />
-            <Box sx={{ flexGrow: 1 }}>
+            <Box sx={{ flex: '1 1 auto', minWidth: 0 }}>
               <Typography variant="subtitle1" fontWeight={600}>
                 {t('docs.er.title')}
               </Typography>
@@ -61,7 +61,7 @@ export default function DocumentationPage() {
               startIcon={<OpenInNewIcon />}
               component={Link}
               to="/er-diagram"
-              sx={{ flexShrink: 0 }}
+              sx={{ flexShrink: 0, ml: { sm: 'auto' } }}
             >
               {t('docs.er.action')}
             </Button>
