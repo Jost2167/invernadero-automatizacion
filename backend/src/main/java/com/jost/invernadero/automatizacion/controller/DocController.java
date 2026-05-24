@@ -46,7 +46,7 @@ public class DocController {
         List<EntityDto> entities = new ArrayList<>();
         List<RelationshipDto> relationships = new ArrayList<>();
 
-        Resource[] resources = resourceResolver.getResources("classpath:codegen/examples/*.json");
+        Resource[] resources = resourceResolver.getResources("classpath*:codegen/examples/*.json");
         List<Resource> sorted = Arrays.stream(resources)
                 .sorted(Comparator.comparing(Resource::getFilename))
                 .toList();
