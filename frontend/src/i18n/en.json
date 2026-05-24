@@ -386,7 +386,9 @@
     },
     "er" : {
       "title" : "Entity-Relationship Diagram",
-      "description" : "ER diagram in Mermaid format with all tables and relationships."
+      "description" : "Interactive ER diagram with all tables and relationships.",
+      "action" : "View diagram",
+      "loadError" : "Could not load the ER schema."
     }
   },
   "sensor" : {

@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import MainLayout from './components/MainLayout.jsx'
 import DocumentationPage from './pages/DocumentationPage.jsx'
+import ErDiagramPage from './pages/ErDiagramPage.jsx'
 import ClimateReadingListPage from './pages/climate-reading/ClimateReadingListPage.jsx'
 import ClimateReadingFormPage from './pages/climate-reading/ClimateReadingFormPage.jsx'
 import CropCycleListPage from './pages/crop-cycle/CropCycleListPage.jsx'
@@ -36,6 +37,7 @@ export default function App() {
         <Route element={<MainLayout><Outlet /></MainLayout>}>
           <Route path="/" element={<HomePage />} />
           <Route path="/docs" element={<DocumentationPage />} />
+          <Route path="/docs/er-diagram" element={<ErDiagramPage />} />
           <Route path="/climate-reading" element={<ClimateReadingListPage />} />
           <Route path="/climate-reading/:id" element={<ClimateReadingFormPage />} />
           <Route path="/crop-cycle" element={<CropCycleListPage />} />

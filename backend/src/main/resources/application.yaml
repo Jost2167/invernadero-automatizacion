@@ -35,3 +35,5 @@ app:
   oauth2:
     auto-register: ${APP_OAUTH2_AUTO_REGISTER:true}
     redirect-uri: ${APP_OAUTH2_REDIRECT_URI:http://localhost:5173/auth/callback}
+  codegen:
+    examples-path: ${CODEGEN_EXAMPLES_PATH:../tools/codegen/examples}

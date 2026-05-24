@@ -2,7 +2,9 @@ import { Box, Button, Card, CardContent, Divider, Typography } from '@mui/materi
 import DownloadIcon from '@mui/icons-material/Download'
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf'
 import AccountTreeIcon from '@mui/icons-material/AccountTree'
+import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 
 export default function DocumentationPage() {
   const { t } = useTranslation()
@@ -56,13 +58,12 @@ export default function DocumentationPage() {
             </Box>
             <Button
               variant="contained"
-              startIcon={<DownloadIcon />}
-              component="a"
-              href="/docs/diagrama-er.md"
-              download="diagrama-er.md"
+              startIcon={<OpenInNewIcon />}
+              component={Link}
+              to="/docs/er-diagram"
               sx={{ flexShrink: 0 }}
             >
-              {t('docs.download')}
+              {t('docs.er.action')}
             </Button>
           </CardContent>
         </Card>

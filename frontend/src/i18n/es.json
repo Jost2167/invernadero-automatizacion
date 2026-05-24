@@ -386,7 +386,9 @@
     },
     "er" : {
       "title" : "Diagrama Entidad-Relación",
-      "description" : "Diagrama ER en formato Mermaid con todas las tablas y relaciones."
+      "description" : "Diagrama ER interactivo con todas las tablas y relaciones del sistema.",
+      "action" : "Ver diagrama",
+      "loadError" : "No se pudo cargar el esquema ER."
     }
   },
   "sensor" : {
