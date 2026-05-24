@@ -6,7 +6,8 @@ import com.jost.invernadero.automatizacion.dto.EntityDto;
 import com.jost.invernadero.automatizacion.dto.ErSchemaDto;
 import com.jost.invernadero.automatizacion.dto.FieldDto;
 import com.jost.invernadero.automatizacion.dto.RelationshipDto;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -14,10 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
@@ -30,14 +29,12 @@ public class DocController {
     private static final Set<String> SUPPORTED_LOCALES = Set.of("es", "en");
     private static final String DEFAULT_LOCALE = "es";
 
-    private final Path examplesPath;
     private final ObjectMapper objectMapper;
+    private final ResourcePatternResolver resourceResolver;
 
-    public DocController(
-            @Value("${app.codegen.examples-path}") String examplesPath,
-            ObjectMapper objectMapper) {
-        this.examplesPath = Path.of(examplesPath);
+    public DocController(ObjectMapper objectMapper, ResourcePatternResolver resourceResolver) {
         this.objectMapper = objectMapper;
+        this.resourceResolver = resourceResolver;
     }
 
     @GetMapping("/er-schema")
@@ -49,14 +46,13 @@ public class DocController {
         List<EntityDto> entities = new ArrayList<>();
         List<RelationshipDto> relationships = new ArrayList<>();
 
-        List<Path> files = new ArrayList<>();
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(examplesPath, "*.json")) {
-            stream.forEach(files::add);
-        }
-        files.sort(Comparator.naturalOrder());
+        Resource[] resources = resourceResolver.getResources("classpath:codegen/examples/*.json");
+        List<Resource> sorted = Arrays.stream(resources)
+                .sorted(Comparator.comparing(Resource::getFilename))
+                .toList();
 
-        for (Path file : files) {
-            JsonNode root = objectMapper.readTree(file.toFile());
+        for (Resource resource : sorted) {
+            JsonNode root = objectMapper.readTree(resource.getInputStream());
             String entityName = root.get("name").asText();
             JsonNode i18n = root.path("i18n").path(locale);
 
