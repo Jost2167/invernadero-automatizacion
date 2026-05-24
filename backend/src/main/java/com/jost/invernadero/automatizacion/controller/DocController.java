@@ -7,13 +7,13 @@ import com.jost.invernadero.automatizacion.dto.ErSchemaDto;
 import com.jost.invernadero.automatizacion.dto.FieldDto;
 import com.jost.invernadero.automatizacion.dto.RelationshipDto;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,16 +30,14 @@ public class DocController {
     private static final String DEFAULT_LOCALE = "es";
 
     private final ObjectMapper objectMapper;
-    private final List<Resource> exampleResources;
+    private final String examplesPath;
 
     public DocController(
             ObjectMapper objectMapper,
-            @Value("classpath*:/codegen/examples/*.json") Resource[] examples
+            @Value("${app.codegen.examples-path}") String examplesPath
     ) {
         this.objectMapper = objectMapper;
-        this.exampleResources = Arrays.stream(examples)
-                .sorted(Comparator.comparing(Resource::getFilename))
-                .toList();
+        this.examplesPath = examplesPath;
     }
 
     @GetMapping("/er-schema")
@@ -51,8 +49,16 @@ public class DocController {
         List<EntityDto> entities = new ArrayList<>();
         List<RelationshipDto> relationships = new ArrayList<>();
 
-        for (Resource resource : exampleResources) {
-            JsonNode root = objectMapper.readTree(resource.getInputStream());
+        File dir = new File(examplesPath);
+        File[] jsonFiles = dir.listFiles((d, name) -> name.endsWith(".json"));
+        if (jsonFiles == null || jsonFiles.length == 0) {
+            return ResponseEntity.ok(new ErSchemaDto(entities, relationships));
+        }
+
+        Arrays.sort(jsonFiles, Comparator.comparing(File::getName));
+
+        for (File file : jsonFiles) {
+            JsonNode root = objectMapper.readTree(file);
             String entityName = root.get("name").asText();
             JsonNode i18n = root.path("i18n").path(locale);
 
