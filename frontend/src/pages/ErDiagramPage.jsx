@@ -280,27 +280,33 @@ export default function ErDiagramPage() {
   }
 
   return (
-    <Box sx={{ height: 'calc(100vh - 64px)', width: '100%' }}>
-      <Typography variant="h6" fontWeight={700} sx={{ px: 2, py: 1 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 64px)', width: '100%' }}>
+      <Typography variant="h6" fontWeight={700} sx={{ px: 2, py: 1, flexShrink: 0 }}>
         {t('docs.er.title')}
       </Typography>
-      <Box sx={{ height: 'calc(100% - 48px)', width: '100%' }}>
-        <ReactFlow
-          nodes={nodes}
-          edges={edges}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          edgeTypes={edgeTypes}
-          fitView
-          fitViewOptions={{ padding: 0.2 }}
-          nodesDraggable={true}
-          nodesConnectable={false}
-          elementsSelectable={true}
-        >
-          <MiniMap />
-          <Controls />
-          <Background color="#e5e7eb" gap={16} />
-        </ReactFlow>
+      <Box sx={{ flex: 1, minHeight: 0, position: 'relative' }}>
+        {nodes.length === 0 ? (
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+            <Typography color="text.secondary">{t('docs.er.empty', 'No hay entidades disponibles.')}</Typography>
+          </Box>
+        ) : (
+          <ReactFlow
+            nodes={nodes}
+            edges={edges}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            edgeTypes={edgeTypes}
+            fitView
+            fitViewOptions={{ padding: 0.2 }}
+            nodesDraggable={true}
+            nodesConnectable={false}
+            elementsSelectable={true}
+          >
+            <MiniMap />
+            <Controls />
+            <Background color="#e5e7eb" gap={16} />
+          </ReactFlow>
+        )}
       </Box>
     </Box>
   )
