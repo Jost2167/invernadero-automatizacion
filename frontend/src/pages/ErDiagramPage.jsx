@@ -8,8 +8,8 @@ import ReactFlow, {
 import dagre from '@dagrejs/dagre'
 import { Alert, Box, CircularProgress, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
-import api from '../api/client.js'
 import { useState } from 'react'
+import schemas from 'virtual:er-schemas'
 
 const NODE_WIDTH = 230
 const HEADER_HEIGHT = 36
@@ -22,6 +22,51 @@ const CARDINALITY = {
   ONE_TO_ONE:   { source: '1', target: '1' },
 }
 
+const OWNING_SIDE = new Set(['ManyToOne', 'OneToOne'])
+
+function toCamelCase(snake) {
+  const parts = snake.split('_')
+  return parts[0] + parts.slice(1).map(p => p[0].toUpperCase() + p.slice(1)).join('')
+}
+
+function toConstantCase(camelCase) {
+  return camelCase.replace(/(?<=[a-z])(?=[A-Z])/g, '_').toUpperCase()
+}
+
+function buildSchemaData(rawSchemas, locale) {
+  const entities = []
+  const relationships = []
+
+  for (const schema of rawSchemas) {
+    const entityName = schema.name
+    const i18n = schema.i18n?.[locale] ?? {}
+    const displayName = i18n.singular ?? entityName
+
+    const fields = [{ name: 'id', displayName: 'ID', type: 'Long', primaryKey: true, foreignKey: false }]
+
+    for (const f of schema.fields ?? []) {
+      const fdisplay = i18n.fields?.[f.name] ?? f.name
+      fields.push({ name: f.name, displayName: fdisplay, type: f.type, primaryKey: false, foreignKey: false })
+    }
+
+    for (const rel of schema.relations ?? []) {
+      if (OWNING_SIDE.has(rel.type)) {
+        const joinCol = rel.joinColumn ?? rel.name + '_id'
+        const fkName = toCamelCase(joinCol)
+        const relLabel = i18n.relations?.[rel.name] != null
+          ? i18n.relations[rel.name] + ' ID'
+          : fkName
+        fields.push({ name: fkName, displayName: relLabel, type: 'Long', primaryKey: false, foreignKey: true })
+      }
+      relationships.push({ from: entityName, to: rel.target, type: toConstantCase(rel.type), label: rel.name })
+    }
+
+    entities.push({ name: entityName, displayName, fields })
+  }
+
+  return { entities, relationships }
+}
+
 // Replicates React Flow's internal control-point formula (curvature=0.25)
 function bezierControl(pos, x1, y1, x2, y2, c = 0.25) {
   if (pos === 'bottom') return [x1, y1 + c * Math.abs(y2 - y1)]
@@ -31,7 +76,6 @@ function bezierControl(pos, x1, y1, x2, y2, c = 0.25) {
   return [x1, y1]
 }
 
-// Cubic bezier point at parameter t ∈ [0,1]
 function cubicBezier(t, x0, y0, x1, y1, x2, y2, x3, y3) {
   const m = 1 - t
   return [
@@ -40,7 +84,6 @@ function cubicBezier(t, x0, y0, x1, y1, x2, y2, x3, y3) {
   ]
 }
 
-// ── Custom edge with cardinality labels at both ends ──────────────────────────
 function CardinalityEdge({
   id, sourceX, sourceY, targetX, targetY,
   sourcePosition, targetPosition,
@@ -51,11 +94,8 @@ function CardinalityEdge({
     targetX, targetY, targetPosition,
   })
 
-  // Compute the same control points React Flow uses internally
   const [scx, scy] = bezierControl(sourcePosition, sourceX, sourceY, targetX, targetY)
   const [tcx, tcy] = bezierControl(targetPosition, targetX, targetY, sourceX, sourceY)
-
-  // t=0.18 → near source; t=0.82 → near target (on the actual curve)
   const [srcX, srcY] = cubicBezier(0.18, sourceX, sourceY, scx, scy, tcx, tcy, targetX, targetY)
   const [tgtX, tgtY] = cubicBezier(0.82, sourceX, sourceY, scx, scy, tcx, tcy, targetX, targetY)
 
@@ -94,7 +134,6 @@ function CardinalityEdge({
 
 const edgeTypes = { cardinality: CardinalityEdge }
 
-// ── Node label ────────────────────────────────────────────────────────────────
 function EntityNodeLabel({ entity }) {
   return (
     <Box
@@ -108,7 +147,6 @@ function EntityNodeLabel({ entity }) {
         boxShadow: 2,
       }}
     >
-      {/* header */}
       <Box
         sx={{
           bgcolor: 'primary.main',
@@ -125,7 +163,6 @@ function EntityNodeLabel({ entity }) {
         {entity.displayName || entity.name}
       </Box>
 
-      {/* fields */}
       <Box sx={{ px: 1, py: 0.5 }}>
         {entity.fields.map((field) => (
           <Box
@@ -141,29 +178,14 @@ function EntityNodeLabel({ entity }) {
               '&:last-child': { borderBottom: 'none' },
             }}
           >
-            {/* left: badge + name */}
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, overflow: 'hidden' }}>
               {field.primaryKey && (
-                <Box
-                  component="span"
-                  sx={{
-                    fontSize: 9, fontWeight: 700, px: 0.5,
-                    bgcolor: 'warning.main', color: 'warning.contrastText',
-                    borderRadius: 0.5, flexShrink: 0,
-                  }}
-                >
+                <Box component="span" sx={{ fontSize: 9, fontWeight: 700, px: 0.5, bgcolor: 'warning.main', color: 'warning.contrastText', borderRadius: 0.5, flexShrink: 0 }}>
                   PK
                 </Box>
               )}
               {field.foreignKey && (
-                <Box
-                  component="span"
-                  sx={{
-                    fontSize: 9, fontWeight: 700, px: 0.5,
-                    bgcolor: 'info.main', color: 'info.contrastText',
-                    borderRadius: 0.5, flexShrink: 0,
-                  }}
-                >
+                <Box component="span" sx={{ fontSize: 9, fontWeight: 700, px: 0.5, bgcolor: 'info.main', color: 'info.contrastText', borderRadius: 0.5, flexShrink: 0 }}>
                   FK
                 </Box>
               )}
@@ -182,12 +204,7 @@ function EntityNodeLabel({ entity }) {
                 {field.displayName || field.name}
               </Box>
             </Box>
-
-            {/* right: type */}
-            <Box
-              component="span"
-              sx={{ fontSize: 10, color: 'text.disabled', flexShrink: 0 }}
-            >
+            <Box component="span" sx={{ fontSize: 10, color: 'text.disabled', flexShrink: 0 }}>
               {field.type}
             </Box>
           </Box>
@@ -197,7 +214,6 @@ function EntityNodeLabel({ entity }) {
   )
 }
 
-// ── Layout ────────────────────────────────────────────────────────────────────
 function buildLayout(entities, relationships) {
   const g = new dagre.graphlib.Graph()
   g.setGraph({ rankdir: 'TB', nodesep: 70, ranksep: 90 })
@@ -240,7 +256,6 @@ function buildLayout(entities, relationships) {
   return { nodes, edges }
 }
 
-// ── Page ──────────────────────────────────────────────────────────────────────
 export default function ErDiagramPage() {
   const { t, i18n } = useTranslation()
   const [nodes, setNodes, onNodesChange] = useNodesState([])
@@ -253,14 +268,16 @@ export default function ErDiagramPage() {
   useEffect(() => {
     setLoading(true)
     setError(null)
-    api.get('/api/docs/er-schema')
-      .then(({ data }) => {
-        const { nodes: n, edges: e } = buildLayout(data.entities, data.relationships)
-        setNodes(n)
-        setEdges(e)
-      })
-      .catch(() => setError(t('docs.er.loadError', 'No se pudo cargar el esquema ER.')))
-      .finally(() => setLoading(false))
+    try {
+      const { entities, relationships } = buildSchemaData(schemas, language ?? 'es')
+      const { nodes: n, edges: e } = buildLayout(entities, relationships)
+      setNodes(n)
+      setEdges(e)
+    } catch {
+      setError(t('docs.er.loadError', 'No se pudo cargar el esquema ER.'))
+    } finally {
+      setLoading(false)
+    }
   }, [language])
 
   if (loading) {
@@ -285,28 +302,22 @@ export default function ErDiagramPage() {
         {t('docs.er.title')}
       </Typography>
       <Box sx={{ flex: 1, minHeight: 0, position: 'relative' }}>
-        {nodes.length === 0 ? (
-          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-            <Typography color="text.secondary">{t('docs.er.empty', 'No hay entidades disponibles.')}</Typography>
-          </Box>
-        ) : (
-          <ReactFlow
-            nodes={nodes}
-            edges={edges}
-            onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
-            edgeTypes={edgeTypes}
-            fitView
-            fitViewOptions={{ padding: 0.2 }}
-            nodesDraggable={true}
-            nodesConnectable={false}
-            elementsSelectable={true}
-          >
-            <MiniMap />
-            <Controls />
-            <Background color="#e5e7eb" gap={16} />
-          </ReactFlow>
-        )}
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          edgeTypes={edgeTypes}
+          fitView
+          fitViewOptions={{ padding: 0.2 }}
+          nodesDraggable={true}
+          nodesConnectable={false}
+          elementsSelectable={true}
+        >
+          <MiniMap />
+          <Controls />
+          <Background color="#e5e7eb" gap={16} />
+        </ReactFlow>
       </Box>
     </Box>
   )
