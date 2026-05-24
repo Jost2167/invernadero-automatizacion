@@ -37,3 +37,5 @@ app:
     redirect-uri: ${APP_OAUTH2_REDIRECT_URI}
   cors:
     allowed-origins: ${ALLOWED_ORIGINS:http://localhost:5173}
+  codegen:
+    examples-path: tools/codegen/examples
