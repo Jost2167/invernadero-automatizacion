@@ -37,7 +37,7 @@ export default function App() {
         <Route element={<MainLayout><Outlet /></MainLayout>}>
           <Route path="/" element={<HomePage />} />
           <Route path="/docs" element={<DocumentationPage />} />
-          <Route path="/docs/er-diagram" element={<ErDiagramPage />} />
+          <Route path="/er-diagram" element={<ErDiagramPage />} />
           <Route path="/climate-reading" element={<ClimateReadingListPage />} />
           <Route path="/climate-reading/:id" element={<ClimateReadingFormPage />} />
           <Route path="/crop-cycle" element={<CropCycleListPage />} />

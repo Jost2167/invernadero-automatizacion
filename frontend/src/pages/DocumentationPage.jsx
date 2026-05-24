@@ -60,7 +60,7 @@ export default function DocumentationPage() {
               variant="contained"
               startIcon={<OpenInNewIcon />}
               component={Link}
-              to="/docs/er-diagram"
+              to="/er-diagram"
               sx={{ flexShrink: 0 }}
             >
               {t('docs.er.action')}
