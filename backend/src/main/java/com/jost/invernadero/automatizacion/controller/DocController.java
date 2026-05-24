@@ -6,8 +6,8 @@ import com.jost.invernadero.automatizacion.dto.EntityDto;
 import com.jost.invernadero.automatizacion.dto.ErSchemaDto;
 import com.jost.invernadero.automatizacion.dto.FieldDto;
 import com.jost.invernadero.automatizacion.dto.RelationshipDto;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -30,11 +30,16 @@ public class DocController {
     private static final String DEFAULT_LOCALE = "es";
 
     private final ObjectMapper objectMapper;
-    private final ResourcePatternResolver resourceResolver;
+    private final List<Resource> exampleResources;
 
-    public DocController(ObjectMapper objectMapper, ResourcePatternResolver resourceResolver) {
+    public DocController(
+            ObjectMapper objectMapper,
+            @Value("classpath*:/codegen/examples/*.json") Resource[] examples
+    ) {
         this.objectMapper = objectMapper;
-        this.resourceResolver = resourceResolver;
+        this.exampleResources = Arrays.stream(examples)
+                .sorted(Comparator.comparing(Resource::getFilename))
+                .toList();
     }
 
     @GetMapping("/er-schema")
@@ -46,12 +51,7 @@ public class DocController {
         List<EntityDto> entities = new ArrayList<>();
         List<RelationshipDto> relationships = new ArrayList<>();
 
-        Resource[] resources = resourceResolver.getResources("classpath*:codegen/examples/*.json");
-        List<Resource> sorted = Arrays.stream(resources)
-                .sorted(Comparator.comparing(Resource::getFilename))
-                .toList();
-
-        for (Resource resource : sorted) {
+        for (Resource resource : exampleResources) {
             JsonNode root = objectMapper.readTree(resource.getInputStream());
             String entityName = root.get("name").asText();
             JsonNode i18n = root.path("i18n").path(locale);
