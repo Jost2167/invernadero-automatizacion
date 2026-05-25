@@ -53,8 +53,6 @@ export default function Sidebar({ onClose }) {
           py: 2.5,
           bgcolor: 'common.white',
           color: 'text.primary',
-          borderBottom: '1px solid',
-          borderColor: 'divider',
           flexShrink: 0,
         }}
       >
