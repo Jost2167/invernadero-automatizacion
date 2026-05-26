@@ -1,13 +1,27 @@
-import { Box, Button, Card, CardContent, Divider, Typography } from '@mui/material'
+import { Box, Button, Card, CardContent, Divider, Tooltip, Typography } from '@mui/material'
 import DownloadIcon from '@mui/icons-material/Download'
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf'
 import AccountTreeIcon from '@mui/icons-material/AccountTree'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import schemas from 'virtual:er-schemas'
 
 export default function DocumentationPage() {
   const { t } = useTranslation()
+  const [pdfAvailable, setPdfAvailable] = useState(false)
+
+  useEffect(() => {
+    fetch('/docs/examples-export.pdf', { method: 'HEAD' })
+      .then(r => {
+        const ct = r.headers.get('content-type') ?? ''
+        setPdfAvailable(r.ok && ct.includes('pdf'))
+      })
+      .catch(() => setPdfAvailable(false))
+  }, [])
+
+  const erAvailable = schemas.length > 0
 
   return (
     <Box sx={{ maxWidth: 700, mx: 'auto', py: 4, px: 2 }}>
@@ -30,16 +44,21 @@ export default function DocumentationPage() {
                 {t('docs.pdf.description')}
               </Typography>
             </Box>
-            <Button
-              variant="contained"
-              startIcon={<DownloadIcon />}
-              component="a"
-              href="/docs/examples-export.pdf"
-              download="examples-export.pdf"
-              sx={{ flexShrink: 0, ml: { sm: 'auto' } }}
-            >
-              {t('docs.download')}
-            </Button>
+            <Tooltip title={!pdfAvailable ? t('docs.pdf.notAvailable', 'PDF no disponible') : ''}>
+              <span>
+                <Button
+                  variant="contained"
+                  startIcon={<DownloadIcon />}
+                  {...(pdfAvailable
+                    ? { component: 'a', href: '/docs/examples-export.pdf', download: 'examples-export.pdf' }
+                    : { disabled: true }
+                  )}
+                  sx={{ flexShrink: 0, ml: { sm: 'auto' } }}
+                >
+                  {t('docs.download')}
+                </Button>
+              </span>
+            </Tooltip>
           </CardContent>
         </Card>
 
@@ -56,15 +75,20 @@ export default function DocumentationPage() {
                 {t('docs.er.description')}
               </Typography>
             </Box>
-            <Button
-              variant="contained"
-              startIcon={<OpenInNewIcon />}
-              component={Link}
-              to="/er-diagram"
-              sx={{ flexShrink: 0, ml: { sm: 'auto' } }}
-            >
-              {t('docs.er.action')}
-            </Button>
+            <Tooltip title={!erAvailable ? t('docs.er.notAvailable', 'No hay entidades definidas') : ''}>
+              <span>
+                <Button
+                  variant="contained"
+                  startIcon={<OpenInNewIcon />}
+                  component={erAvailable ? Link : 'button'}
+                  to={erAvailable ? '/er-diagram' : undefined}
+                  disabled={!erAvailable}
+                  sx={{ flexShrink: 0, ml: { sm: 'auto' } }}
+                >
+                  {t('docs.er.action')}
+                </Button>
+              </span>
+            </Tooltip>
           </CardContent>
         </Card>
       </Box>
