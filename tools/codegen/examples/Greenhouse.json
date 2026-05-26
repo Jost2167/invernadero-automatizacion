@@ -1,0 +1,76 @@
+{
+  "version" : "1",
+  "name" : "Greenhouse",
+  "tableName" : "greenhouses",
+  "fields" : [ {
+    "name" : "code",
+    "type" : "String",
+    "length" : 40,
+    "nullable" : false,
+    "unique" : true
+  }, {
+    "name" : "name",
+    "type" : "String",
+    "length" : 120,
+    "nullable" : false
+  }, {
+    "name" : "areaSquareMeters",
+    "type" : "BigDecimal",
+    "precision" : 10,
+    "scale" : 2,
+    "nullable" : false
+  }, {
+    "name" : "status",
+    "type" : "Enum",
+    "enumValues" : [ "ACTIVE", "INACTIVE", "MAINTENANCE" ],
+    "nullable" : false,
+    "defaultValue" : "ACTIVE"
+  }, {
+    "name" : "active",
+    "type" : "Boolean",
+    "nullable" : false,
+    "defaultValue" : true
+  } ],
+  "relations" : [ {
+    "name" : "location",
+    "type" : "ManyToOne",
+    "target" : "Location",
+    "joinColumn" : "location_id",
+    "fetch" : "LAZY"
+  } ],
+  "i18n" : {
+    "es" : {
+      "singular" : "Invernadero",
+      "plural" : "Invernaderos",
+      "fields" : {
+        "code" : "Código",
+        "name" : "Nombre",
+        "areaSquareMeters" : "Área (m²)",
+        "status" : "Estado",
+        "active" : "Activo"
+      },
+      "relations" : {
+        "location" : "Ubicación"
+      }
+    },
+    "en" : {
+      "singular" : "Greenhouse",
+      "plural" : "Greenhouses",
+      "fields" : {
+        "code" : "Code",
+        "name" : "Name",
+        "areaSquareMeters" : "Area (m²)",
+        "status" : "Status",
+        "active" : "Active"
+      },
+      "relations" : {
+        "location" : "Location"
+      }
+    }
+  },
+  "options" : {
+    "generateController" : true,
+    "generateFrontend" : true,
+    "auditable" : false
+  }
+}

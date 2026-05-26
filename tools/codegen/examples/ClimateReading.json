@@ -1,0 +1,80 @@
+{
+  "version" : "1",
+  "name" : "ClimateReading",
+  "tableName" : "climate_readings",
+  "fields" : [ {
+    "name" : "recordedAt",
+    "type" : "LocalDateTime",
+    "nullable" : false
+  }, {
+    "name" : "temperatureCelsius",
+    "type" : "BigDecimal",
+    "precision" : 5,
+    "scale" : 2,
+    "nullable" : false
+  }, {
+    "name" : "humidityPercent",
+    "type" : "BigDecimal",
+    "precision" : 5,
+    "scale" : 2,
+    "nullable" : false
+  }, {
+    "name" : "co2Ppm",
+    "type" : "Integer",
+    "nullable" : true
+  }, {
+    "name" : "lightLux",
+    "type" : "Integer",
+    "nullable" : true
+  } ],
+  "relations" : [ {
+    "name" : "sensor",
+    "type" : "ManyToOne",
+    "target" : "Sensor",
+    "joinColumn" : "sensor_id",
+    "fetch" : "LAZY"
+  }, {
+    "name" : "greenhouse",
+    "type" : "ManyToOne",
+    "target" : "Greenhouse",
+    "joinColumn" : "greenhouse_id",
+    "fetch" : "LAZY"
+  } ],
+  "i18n" : {
+    "es" : {
+      "singular" : "Lectura climática",
+      "plural" : "Lecturas climáticas",
+      "fields" : {
+        "recordedAt" : "Fecha de registro",
+        "temperatureCelsius" : "Temperatura (°C)",
+        "humidityPercent" : "Humedad (%)",
+        "co2Ppm" : "CO2 (ppm)",
+        "lightLux" : "Luz (lux)"
+      },
+      "relations" : {
+        "sensor" : "Sensor",
+        "greenhouse" : "Invernadero"
+      }
+    },
+    "en" : {
+      "singular" : "Climate reading",
+      "plural" : "Climate readings",
+      "fields" : {
+        "recordedAt" : "Recorded at",
+        "temperatureCelsius" : "Temperature (°C)",
+        "humidityPercent" : "Humidity (%)",
+        "co2Ppm" : "CO2 (ppm)",
+        "lightLux" : "Light (lux)"
+      },
+      "relations" : {
+        "sensor" : "Sensor",
+        "greenhouse" : "Greenhouse"
+      }
+    }
+  },
+  "options" : {
+    "generateController" : true,
+    "generateFrontend" : true,
+    "auditable" : false
+  }
+}

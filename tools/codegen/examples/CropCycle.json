@@ -1,0 +1,72 @@
+{
+  "version" : "1",
+  "name" : "CropCycle",
+  "tableName" : "crop_cycles",
+  "fields" : [ {
+    "name" : "cropName",
+    "type" : "String",
+    "length" : 120,
+    "nullable" : false
+  }, {
+    "name" : "variety",
+    "type" : "String",
+    "length" : 120,
+    "nullable" : true
+  }, {
+    "name" : "startedAt",
+    "type" : "LocalDate",
+    "nullable" : false
+  }, {
+    "name" : "expectedHarvestAt",
+    "type" : "LocalDate",
+    "nullable" : true
+  }, {
+    "name" : "status",
+    "type" : "Enum",
+    "enumValues" : [ "PLANNED", "GROWING", "HARVESTED", "CANCELLED" ],
+    "nullable" : false,
+    "defaultValue" : "PLANNED"
+  } ],
+  "relations" : [ {
+    "name" : "greenhouse",
+    "type" : "ManyToOne",
+    "target" : "Greenhouse",
+    "joinColumn" : "greenhouse_id",
+    "fetch" : "LAZY"
+  } ],
+  "i18n" : {
+    "es" : {
+      "singular" : "Ciclo de cultivo",
+      "plural" : "Ciclos de cultivo",
+      "fields" : {
+        "cropName" : "Nombre del cultivo",
+        "variety" : "Variedad",
+        "startedAt" : "Fecha de inicio",
+        "expectedHarvestAt" : "Cosecha esperada",
+        "status" : "Estado"
+      },
+      "relations" : {
+        "greenhouse" : "Invernadero"
+      }
+    },
+    "en" : {
+      "singular" : "Crop cycle",
+      "plural" : "Crop cycles",
+      "fields" : {
+        "cropName" : "Crop name",
+        "variety" : "Variety",
+        "startedAt" : "Start date",
+        "expectedHarvestAt" : "Expected harvest date",
+        "status" : "Status"
+      },
+      "relations" : {
+        "greenhouse" : "Greenhouse"
+      }
+    }
+  },
+  "options" : {
+    "generateController" : true,
+    "generateFrontend" : true,
+    "auditable" : false
+  }
+}

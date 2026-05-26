@@ -1,0 +1,73 @@
+{
+  "version" : "1",
+  "name" : "FertilizationEvent",
+  "tableName" : "fertilization_events",
+  "fields" : [ {
+    "name" : "appliedAt",
+    "type" : "LocalDateTime",
+    "nullable" : false
+  }, {
+    "name" : "fertilizerName",
+    "type" : "String",
+    "length" : 120,
+    "nullable" : false
+  }, {
+    "name" : "dose",
+    "type" : "BigDecimal",
+    "precision" : 10,
+    "scale" : 2,
+    "nullable" : false
+  }, {
+    "name" : "unit",
+    "type" : "Enum",
+    "enumValues" : [ "GRAMS", "KILOGRAMS", "MILLILITERS", "LITERS" ],
+    "nullable" : false
+  }, {
+    "name" : "notes",
+    "type" : "String",
+    "length" : 255,
+    "nullable" : true
+  } ],
+  "relations" : [ {
+    "name" : "cropCycle",
+    "type" : "ManyToOne",
+    "target" : "CropCycle",
+    "joinColumn" : "crop_cycle_id",
+    "fetch" : "LAZY"
+  } ],
+  "i18n" : {
+    "es" : {
+      "singular" : "Evento de fertilización",
+      "plural" : "Eventos de fertilización",
+      "fields" : {
+        "appliedAt" : "Fecha de aplicación",
+        "fertilizerName" : "Fertilizante",
+        "dose" : "Dosis",
+        "unit" : "Unidad",
+        "notes" : "Notas"
+      },
+      "relations" : {
+        "cropCycle" : "Ciclo de cultivo"
+      }
+    },
+    "en" : {
+      "singular" : "Fertilization event",
+      "plural" : "Fertilization events",
+      "fields" : {
+        "appliedAt" : "Application date",
+        "fertilizerName" : "Fertilizer name",
+        "dose" : "Dose",
+        "unit" : "Unit",
+        "notes" : "Notes"
+      },
+      "relations" : {
+        "cropCycle" : "Crop cycle"
+      }
+    }
+  },
+  "options" : {
+    "generateController" : true,
+    "generateFrontend" : true,
+    "auditable" : false
+  }
+}

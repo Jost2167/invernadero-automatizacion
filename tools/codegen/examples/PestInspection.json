@@ -1,0 +1,73 @@
+{
+  "version" : "1",
+  "name" : "PestInspection",
+  "tableName" : "pest_inspections",
+  "fields" : [ {
+    "name" : "inspectedAt",
+    "type" : "LocalDateTime",
+    "nullable" : false
+  }, {
+    "name" : "pestType",
+    "type" : "String",
+    "length" : 120,
+    "nullable" : false
+  }, {
+    "name" : "severity",
+    "type" : "Enum",
+    "enumValues" : [ "LOW", "MEDIUM", "HIGH", "CRITICAL" ],
+    "nullable" : false
+  }, {
+    "name" : "affectedAreaSquareMeters",
+    "type" : "BigDecimal",
+    "precision" : 10,
+    "scale" : 2,
+    "nullable" : true
+  }, {
+    "name" : "treatmentApplied",
+    "type" : "Boolean",
+    "nullable" : false,
+    "defaultValue" : false
+  } ],
+  "relations" : [ {
+    "name" : "cropCycle",
+    "type" : "ManyToOne",
+    "target" : "CropCycle",
+    "joinColumn" : "crop_cycle_id",
+    "fetch" : "LAZY"
+  } ],
+  "i18n" : {
+    "es" : {
+      "singular" : "Inspección de plagas",
+      "plural" : "Inspecciones de plagas",
+      "fields" : {
+        "inspectedAt" : "Fecha de inspección",
+        "pestType" : "Tipo de plaga",
+        "severity" : "Severidad",
+        "affectedAreaSquareMeters" : "Área afectada (m²)",
+        "treatmentApplied" : "Tratamiento aplicado"
+      },
+      "relations" : {
+        "cropCycle" : "Ciclo de cultivo"
+      }
+    },
+    "en" : {
+      "singular" : "Pest inspection",
+      "plural" : "Pest inspections",
+      "fields" : {
+        "inspectedAt" : "Inspected at",
+        "pestType" : "Pest type",
+        "severity" : "Severity",
+        "affectedAreaSquareMeters" : "Affected area (m²)",
+        "treatmentApplied" : "Treatment applied"
+      },
+      "relations" : {
+        "cropCycle" : "Crop cycle"
+      }
+    }
+  },
+  "options" : {
+    "generateController" : true,
+    "generateFrontend" : true,
+    "auditable" : false
+  }
+}
