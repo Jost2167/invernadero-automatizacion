@@ -1,6 +1,6 @@
 import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
-import { readFileSync, readdirSync } from 'fs'
+import { readFileSync, readdirSync, existsSync } from 'fs'
 import { fileURLToPath } from 'url'
 import { dirname, join, resolve } from 'path'
 
@@ -18,6 +18,7 @@ function erSchemasPlugin() {
     },
     load(id) {
       if (id === RESOLVED_ID) {
+        if (!existsSync(examplesDir)) return `export default []`
         const files = readdirSync(examplesDir)
           .filter(f => f.endsWith('.json'))
           .sort()
